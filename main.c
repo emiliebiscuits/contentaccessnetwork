@@ -1,5 +1,13 @@
-#include<mpi.h>
-#include<stdio.h>
+#include <mpi.h>
+#include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+
+int tirage()
+{
+	srand(time(NULL));
+	return rand()%1000; 
+}
 
 int main(int argc,char **argv)
 {
