@@ -26,30 +26,29 @@ int main(int argc,char **argv)
 	//printf("Hello world from %d(out of %d procs.!)\n",rank,size);
 	if(rank == 0)
 	{
-		MPI_Send(&inserer, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
+		int commande, i;
+		for(i=1;i<size;i++)
+		{
+			MPI_Send(&inserer, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
+			MPI_Recv(&commande, 1, MPI_INT, i,0, MPI_COMM_WORLD);
+		}	
 	}
-	else if(rank == 1)
+	else
 	{
 		int commande;
 		Espace e;
 		MPI_Recv(&commande, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 		printf("commande %d \n", commande);
-		affectationEspace(&e,0,1000,0,1000);
-		affichageEspace(&e);
-		//MPI_Send(&fininertion, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
-	}
-	else
-	{
-		/*int commande;
-		int xcible = tirage();
-		int ycible = tirage();
-		Espace e;
-		MPI_Recv(&commande, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-		printf("commande %d \n", commande);
-		e.xdebut = 0;
-		e.ydebut = 0;
-		e.xfin = 1000;
-		e.yfin = 1000;*/
+		if(rank == 1)
+		{
+			affectationEspace(&e,0,1000,0,1000);
+			affichageEspace(&e);
+		}
+		else
+		{
+			
+		}
+		MPI_Send(&fininertion, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
 	}
 	MPI_Finalize();
 	return 0;
