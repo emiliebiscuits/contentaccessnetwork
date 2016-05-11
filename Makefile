@@ -1,11 +1,18 @@
-EXEC=main
-CC=mpicc
+EXEC=out
+MPI=mpicc
+CC=gcc
 
 all: $(EXEC)
 
-main: main.c
-	$(CC) -o $@ $^
+out: main.o espace.o
+	$(MPI) -o $@ $^
+
+espace.o: espace.c
+	$(MPI) -o $@ -c $<
 	
+main.o:	main.c espace.h
+	$(MPI) -o $@ -c $<
+		
 clean:
 	rm -rf *.o
 	

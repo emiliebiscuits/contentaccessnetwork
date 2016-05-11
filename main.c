@@ -34,8 +34,8 @@ int main(int argc,char **argv)
 		Espace e;
 		MPI_Recv(&commande, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 		printf("commande %d \n", commande);
-		//affectationEspace(&e,0,1000,0,1000);
-		//affichageEspace(&e);
+		affectationEspace(&e,0,1000,0,1000);
+		affichageEspace(&e);
 		//MPI_Send(&fininertion, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
 	}
 	else
