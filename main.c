@@ -30,23 +30,28 @@ int main(int argc,char **argv)
 		for(i=1;i<size;i++)
 		{
 			MPI_Send(&inserer, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
-			MPI_Recv(&commande, 1, MPI_INT, i,0, MPI_COMM_WORLD);
+			MPI_Recv(&commande, 1, MPI_INT, i,0, MPI_COMM_WORLD,MPI_STATUS_IGNORE);
 		}	
 	}
 	else
 	{
 		int commande;
 		Espace e;
+		int cibleX = tirage();
+		int cibleY  = tirage();
 		MPI_Recv(&commande, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 		printf("commande %d \n", commande);
 		if(rank == 1)
 		{
 			affectationEspace(&e,0,1000,0,1000);
 			affichageEspace(&e);
+			//MPI_IRecv
+			//if dans l'espace MPI_Send 
 		}
 		else
 		{
-			
+			//MPI_Bcast 
+			//MPI_Recv
 		}
 		MPI_Send(&fininertion, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
 	}

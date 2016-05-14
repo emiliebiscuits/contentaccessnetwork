@@ -13,3 +13,12 @@ void affichageEspace(const Espace * const e)
 {
 	printf("Espace : %d %d %d %d\n",e->xdebut, e->xfin, e->ydebut, e->yfin);
 }
+
+int estDedans(const Espace * const e, const int x, const int y)
+{
+	if(x>=e->xdebut && x<=e->xfin && y>=e->ydebut && y<=e->yfin)
+	{
+		return 1;
+	}
+	return 0;
+}
