@@ -91,9 +91,9 @@ int main(int argc,char **argv)
 			}
 		}
 		//Affichage d'espace et d'indentifiant
-		printf("Espace de %d :\n",rank);
+		printf("Espace de %d : ",rank);
 		affichageEspace(&e);
-		printf("Identifiant de %d : \n( %d, %d )\n\n\n",rank, identifiant[0],identifiant[1]);
+		printf("\nIdentifiant de %d : ( %d, %d )\n\n\n",rank, identifiant[0],identifiant[1]);
 	}
 	
 	MPI_Finalize();
