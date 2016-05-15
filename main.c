@@ -41,7 +41,7 @@ int main(int argc,char **argv)
 		int demande[2];
 		int j;
 		Espace e;
-		int cible[2] = {tirage(rank),tirage(rank+10)};
+		int identifiant[2] = {tirage(rank),tirage(rank+10)};
 		MPI_Recv(&commande, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 		//printf("commande %d \n", commande);
 		if(rank == 1)
@@ -53,19 +53,25 @@ int main(int argc,char **argv)
 		{
 			for(j=1;j<rank;j++)
 			{
-				MPI_Send(cible, 2, MPI_INT, j, 0, MPI_COMM_WORLD);
-				printf("proc %d envoie: %d %d  \n",rank,cible[0],cible[1]);
+				MPI_Send(identifiant, 2, MPI_INT, j, 0, MPI_COMM_WORLD);
+				printf("proc %d envoie: %d %d  \n",rank,identifiant[0],identifiant[1]);
 			}
 			//attend l'autorisation d'insertion
+			//MPI_Recv(identifiant, 4, MPI_INT, MPI_ANY_SOURCE,0,MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 			//insertion
+			//affectationEspace(&e,,,,);
 		}
 		MPI_Send(&fininertion, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
 		for(j=rank+1;j<size;j++)
 		{
 			MPI_Recv(demande, 2, MPI_INT, j, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 			printf("proc %d reçu: %d %d  du proc %d \n",rank, demande[0],demande[1],j);
+			//si dans l'espace, envoie autorisation d'insertion
+			if(estDedans(&e,demande[0],demande[1]))
+			{
+				//MPI_Send(identifiant, 4, MPI_INT, j, 0, MPI_COMM_WORLD);
+			}
 		}
-		//if dans l'espace, envoie autorisation d'insertion
 		printf("fin proc %d \n",rank);
 	}
 	MPI_Finalize();
