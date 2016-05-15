@@ -11,7 +11,7 @@ void affectationEspace(Espace * const e,const int x1, const int x2, const int y1
 
 void affichageEspace(const Espace * const e)
 {
-	printf("Espace : %d %d %d %d\n",e->xdebut, e->xfin, e->ydebut, e->yfin);
+	printf("[xdebut : %d  xfin : %d  ydebut : %d  yfin : %d]\n",e->xdebut, e->xfin, e->ydebut, e->yfin);
 }
 
 int estDedans(const Espace * const e, const int x, const int y)

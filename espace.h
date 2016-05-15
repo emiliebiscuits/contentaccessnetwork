@@ -10,7 +10,6 @@ struct espace
 };
 typedef struct espace Espace;
 
-
 void affectationEspace(Espace * const,const int, const int, const int, const int);
 
 void affichageEspace(const Espace * const);
