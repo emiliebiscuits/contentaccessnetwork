@@ -16,5 +16,15 @@ void affichageEspace(const Espace * const);
 
 int estDedans(const Espace * const, const int, const int);
 
-int *decouperEspace(Espace * const);
+void decouperEspace(Espace * const e, int * const retour);
+
+int estVoisin(const Espace * const, const int, const int, const int, const int);
+
+int estVoisinHaut(const Espace * const, const int, const int, const int, const int);
+
+int estVoisinBas(const Espace * const, const int, const int, const int, const int);
+
+int estVoisinGauche(const Espace * const, const int, const int, const int, const int);
+
+int estVoisinDroite(const Espace * const, const int, const int, const int, const int);
 #endif

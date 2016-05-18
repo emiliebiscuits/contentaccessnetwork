@@ -6,7 +6,7 @@
 
 //Commandes
 const int inserer = 1;
-const int fininertion =2;
+const int fininsertion = 2;
 
 
 
@@ -70,7 +70,7 @@ int main(int argc,char **argv)
 			}
 		}
 		//Dire au coordinateur que l'insertion est finie
-		MPI_Send(&fininertion, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
+		MPI_Send(&fininsertion, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
 		
 		//Ecouter chaque demande d'insertion
 		for(j=rank+1;j<size;j++)
@@ -79,7 +79,8 @@ int main(int argc,char **argv)
 			//si dans l'espace, envoie autorisation d'insertion
 			if(estDedans(&e,demande[0],demande[1]))
 			{
-				espaceDistribue = decouperEspace(&e);
+				espaceDistribue = (int*)malloc(4*sizeof(int)); 
+				decouperEspace(&e,espaceDistribue);
 				MPI_Send(espaceDistribue, 4, MPI_INT, j, 0, MPI_COMM_WORLD);
 				free(espaceDistribue);
 			}
@@ -93,7 +94,7 @@ int main(int argc,char **argv)
 		//Affichage d'espace et d'indentifiant
 		printf("Espace de %d : ",rank);
 		affichageEspace(&e);
-		printf("\nIdentifiant de %d : ( %d, %d )\n\n\n",rank, identifiant[0],identifiant[1]);
+		printf("Identifiant de %d : ( %d, %d )\n",rank, identifiant[0],identifiant[1]);
 	}
 	
 	MPI_Finalize();
