@@ -23,23 +23,42 @@ int estDedans(const Espace * const e, const int x, const int y)
 	return 0;
 }
 
-void decouperEspace(Espace * const e, int * const retour)
+void decouperEspace(Espace * const e, int* identifiant, int * const retour)
 {
+	int temp;
 	if(e->xfin - e->xdebut >= e->yfin - e->ydebut)
-	{
-		retour[1] = e->xfin ; 
+	{	temp = e->xfin;
 		e->xfin = (e->xfin + e->xdebut)/2;
-		retour[0] = e->xfin + 1;
 		retour[2] = e->ydebut;
-		retour[3] = e->yfin;	 
+		retour[3] = e->yfin;
+
+		if(estDedans(e, identifiant[0], identifiant[1])){
+			retour[1] = temp; 
+			retour[0] = e->xfin + 1;
+		}
+		else{
+			retour[1] = e->xfin; 
+			retour[0] = e->xdebut;
+			e->xdebut = e->xfin +1;
+			e->xfin = temp;
+		}
 	}
 	else
-	{
-		retour[3] = e->yfin; 
+	{	temp = e->yfin;
 		e->yfin = (e->yfin + e->ydebut)/2;
-		retour[2] = e->yfin + 1;
 		retour[0] = e->xdebut;
 		retour[1] = e->xfin;
+
+		if(estDedans(e, identifiant[0], identifiant[1])){
+			retour[2] = e->yfin+1;
+			retour[3] = temp;
+		}
+		else{
+			retour[2] = e->ydebut;
+			retour[3] = e->yfin;
+			e->ydebut = e->yfin +1;
+			e->yfin = temp;
+		}
 	}
 }
 
