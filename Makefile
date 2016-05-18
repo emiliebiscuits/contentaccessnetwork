@@ -5,13 +5,13 @@ CC=gcc
 all: $(EXEC)
 
 out: main.o espace.o
-	$(MPI) -o $@ $^
+	$(MPI) `pkg-config --cflags --libs glib-2.0` -o $@ $^
 
 espace.o: espace.c
-	$(MPI) -o $@ -c $<
+	$(MPI) `pkg-config --cflags --libs glib-2.0` -o $@ -c $<
 	
 main.o:	main.c espace.h
-	$(MPI) -o $@ -c $<
+	$(MPI)  `pkg-config --cflags --libs glib-2.0` -o $@ -c $<
 		
 clean:
 	rm -rf *.o
@@ -21,5 +21,4 @@ mrproper: clean
 	
 exec:
 	mpirun -np 6 $(EXEC)
-
 
