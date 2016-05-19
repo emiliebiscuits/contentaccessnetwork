@@ -23,7 +23,7 @@ int estDedans(const Espace * const e, const int x, const int y)
 	return 0;
 }
 
-void decouperEspace(Espace * const e, int* identifiant, int * const retour)
+void decouperEspace(Espace * const e, int * const identifiant, int * const retour)
 {
 	int temp;
 	if(e->xfin - e->xdebut >= e->yfin - e->ydebut)
