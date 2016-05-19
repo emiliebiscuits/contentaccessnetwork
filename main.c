@@ -5,12 +5,6 @@
 #include "espace.h"
 #include "voisin.h"
 
-//Commandes
-const int inserer = 1;
-const int fininsertion = 2;
-
-
-
 int tirage(int rang, int debut, int fin)
 {
 	srand(time(NULL));
@@ -42,8 +36,8 @@ int main(int argc,char **argv)
 		//Envoyer l'invitation d'insertion à chaque processus et attendre la fin de son insertion 
 		for(i=1;i<size;i++)
 		{
-			MPI_Send(&inserer, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
-			MPI_Recv(&commande, 1, MPI_INT, i, 0, MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+			MPI_Send(NULL, 0, MPI_INT, i, 0, MPI_COMM_WORLD);
+			MPI_Recv(NULL, 0, MPI_INT, i, 0, MPI_COMM_WORLD,MPI_STATUS_IGNORE);
 		}	
 	}
 	else
@@ -53,7 +47,7 @@ int main(int argc,char **argv)
 		identifiant[1] = tirage(rank+10,0,1000);
 
 		//Attendre la commande du coordinateur 
-		MPI_Recv(&commande, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+		MPI_Recv(NULL, 0, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
 		if(rank == 1)
 		{
@@ -81,7 +75,7 @@ int main(int argc,char **argv)
 		}
 
 		//Dire au coordinateur que l'insertion est finie
-		MPI_Send(&fininsertion, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
+		MPI_Send(NULL, 0, MPI_INT, 0, 0, MPI_COMM_WORLD);
 		
 		//Ecouter chaque demande d'insertion
 		for(i=rank+1;i<size;i++)
