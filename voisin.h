@@ -24,8 +24,11 @@ void supprimerHaut(Voisins * const, const int);
 void supprimerBas(Voisins * const, const int);
 void supprimerGauche(Voisins * const, const int);
 void supprimerDroite(Voisins * const, const int);
-void supprimerUn(Voisins * const, const int);
+void supprimerUn(GSList *, const int);
 
 
+void afficherGSList(GSList * const, const int, const int);
 void afficherVoisins(Voisins * const, const int);
+
+void viderVoisin(Voisins * const);
 #endif

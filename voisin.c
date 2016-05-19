@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "voisin.h"
+#include <string.h>
 
 int * allocTab(const int num, const int x1, const int x2, const int y1, const int y2)
 {
@@ -36,10 +37,9 @@ void ajouterDroite(Voisins * const v, const int num, const int x1, const int x2,
 	v->voisinsDroite = g_slist_append(v->voisinsDroite, allocTab(num, x1, x2, y1, y2));
 }
 
-
-void supprimerHaut(Voisins * const v, const int num)
+void supprimerUn(GSList * l, const int num)
 {
-	GSList *temp = v->voisinsHaut;
+	GSList *temp = l;
 	int *pointeur;
 	while(temp != NULL && (((int*)temp->data)[0] == num))
 	{
@@ -48,39 +48,74 @@ void supprimerHaut(Voisins * const v, const int num)
 	if(temp != NULL)
 	{
 		pointeur = temp->data;
-		v->voisinsHaut = g_slist_remove(v->voisinsHaut,temp->data);
+		l = g_slist_remove(l,temp->data);
 		free(pointeur);
+	}
+}
+
+void supprimerHaut(Voisins * const v, const int num)
+{
+	supprimerUn(v->voisinsHaut, num);
+}
+
+void supprimerBas(Voisins * const v, const int num)
+{
+	supprimerUn(v->voisinsBas, num);
+}
+
+void supprimerGauche(Voisins * const v, const int num)
+{
+	supprimerUn(v->voisinsGauche, num);
+}
+
+void supprimerDroite(Voisins * const v, const int num)
+{
+	supprimerUn(v->voisinsDroite, num);
+}
+
+
+
+void afficherGSList(GSList * const l, const int num, const int direction)
+{
+	GSList *temp = l;
+	char *c;
+	switch(direction)
+	{
+		case 1: 
+			c = "haut";
+			break;
+		case 2:
+			c = "bas";
+			break;
+		case 3:
+			c = "gauche";
+			break;
+		case 4:
+			c = "droite";
+			break;
+	}
+	while(temp != NULL)
+	{
+		printf("%d a un voisin %s : proc %d (%d , %d)\n", num, c, ((int*)temp->data)[0], ((int*)temp->data)[1], ((int*)temp->data)[2]);
+		temp = temp->next;
 	}
 }
 
 
 void afficherVoisins(Voisins * const v, const int num)
 {	
-	GSList *temp = v->voisinsHaut;
-	while(temp != NULL)
-	{
-		printf("%d a un voisin haut : proc %d (%d , %d)\n", num, ((int*)temp->data)[0], ((int*)temp->data)[1], ((int*)temp->data)[2]);
-		temp = temp->next;
-	}
-	
-	temp = v->voisinsBas;
-	while(temp != NULL)
-	{
-		printf("%d a un voisin bas : proc %d (%d , %d)\n", num, ((int*)temp->data)[0], ((int*)temp->data)[1], ((int*)temp->data)[2]);
-		temp = temp->next;
-	}
-	
-	temp = v->voisinsGauche;
-	while(temp != NULL)
-	{
-		printf("%d a un voisin gauche : proc %d (%d , %d)\n", num, ((int*)temp->data)[0], ((int*)temp->data)[1], ((int*)temp->data)[2]);
-		temp = temp->next;
-	}
-	temp = v->voisinsDroite;
-	while(temp != NULL)
-	{
-		printf("%d a un voisin droite : proc %d (%d , %d)\n", num, ((int*)temp->data)[0], ((int*)temp->data)[1], ((int*)temp->data)[2]);
-		temp = temp->next;
-	}
+	afficherGSList(v->voisinsHaut, num, 1);
+	afficherGSList(v->voisinsBas, num, 2);
+	afficherGSList(v->voisinsGauche, num, 3);
+	afficherGSList(v->voisinsDroite, num, 4);
 }
 
+void viderVoisin(Voisins * const v)
+{
+	void (*pf)(void *);
+	pf = free;
+	g_slist_free_full(v->voisinsHaut, pf);
+	g_slist_free_full(v->voisinsBas, pf);
+	g_slist_free_full(v->voisinsGauche, pf);
+	g_slist_free_full(v->voisinsDroite, pf);
+}

@@ -136,10 +136,13 @@ int main(int argc,char **argv)
 			}
 		}
 	}
+	//Afficher les voisins
 	if(rank != 0 && rank != i)
 	{
 		afficherVoisins(&v,rank);
+		viderVoisin(&v);
 	}
+	
 	MPI_Finalize();
 	return 0;
 }
