@@ -1,9 +1,9 @@
 #include <mpi.h>
 #include <stdio.h>
 #include <time.h>
-#include <glib.h>
 #include <stdlib.h>
 #include "espace.h"
+#include "voisin.h"
 
 //Commandes
 const int inserer = 1;
@@ -34,10 +34,12 @@ int main(int argc,char **argv)
 	int identifiant[2];
 	int annonceVoisin[5];
 	Espace e;
-	GList list;
+	Voisins v;
+	initVoisins(&v);
 	
 	if(rank == 0)
 	{
+		//Envoyer l'invitation d'insertion à chaque processus et attendre la fin de son insertion 
 		for(i=1;i<size;i++)
 		{
 			MPI_Send(&inserer, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
@@ -100,7 +102,7 @@ int main(int argc,char **argv)
 		affichageEspace(&e);
 		printf("Identifiant de %d : ( %d, %d )\n",rank, identifiant[0],identifiant[1]);
 	}
-	//Broadcast pour annoncer son espace à tous les processus, et chaque processus calcul s'il espace reçu est son voisin
+	//Broadcast pour annoncer son espace à tous les processus, et chaque processus calcul si l'espace reçu est son voisin
 	for(i=1;i<size;i++)
 	{
 		if(rank == i)
@@ -112,13 +114,32 @@ int main(int argc,char **argv)
 			annonceVoisin[4] = rank;
 		}
 		MPI_Bcast(annonceVoisin, 5, MPI_INT, i, MPI_COMM_WORLD);
-		if(rank != 0)
+		if(rank != 0 && rank != i)
 		{
-			printf("%d a reçu [ %d, %d, %d, %d ] du proc %d \n", rank, annonceVoisin[0], annonceVoisin[1], annonceVoisin[2], annonceVoisin[3], annonceVoisin[4]);	
-			//S'il est un voisin, on l'ajjoute dans la liste de voisins
+			//printf("%d a reçu [ %d, %d, %d, %d ] du proc %d \n", rank, annonceVoisin[0], annonceVoisin[1], annonceVoisin[2], annonceVoisin[3], annonceVoisin[4]);	
+			//S'il est un voisin, on l'ajoute dans la liste de voisins
+			if(estVoisinHaut(&e,annonceVoisin[0], annonceVoisin[1], annonceVoisin[2], annonceVoisin[3]))
+			{
+				ajouterHaut(&v, annonceVoisin[4], annonceVoisin[0], annonceVoisin[1], annonceVoisin[2], annonceVoisin[3]);
+			}
+			else if(estVoisinBas(&e,annonceVoisin[0], annonceVoisin[1], annonceVoisin[2], annonceVoisin[3]))
+			{
+				ajouterBas(&v, annonceVoisin[4], annonceVoisin[0], annonceVoisin[1], annonceVoisin[2], annonceVoisin[3]);
+			}
+			else if(estVoisinGauche(&e,annonceVoisin[0], annonceVoisin[1], annonceVoisin[2], annonceVoisin[3]))
+			{
+				ajouterGauche(&v, annonceVoisin[4], annonceVoisin[0], annonceVoisin[1], annonceVoisin[2], annonceVoisin[3]);
+			}
+			else if(estVoisinDroite(&e,annonceVoisin[0], annonceVoisin[1], annonceVoisin[2], annonceVoisin[3]))
+			{
+				ajouterDroite(&v, annonceVoisin[4], annonceVoisin[0], annonceVoisin[1], annonceVoisin[2], annonceVoisin[3]);
+			}
 		}
 	}
-	
+	if(rank != 0 && rank != i)
+	{
+		afficherVoisins(&v,rank);
+	}
 	MPI_Finalize();
 	return 0;
 }

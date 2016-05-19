@@ -4,13 +4,16 @@ CC=gcc
 
 all: $(EXEC)
 
-out: main.o espace.o
+out: main.o espace.o voisin.o
 	$(MPI) `pkg-config --cflags --libs glib-2.0` -o $@ $^
 
 espace.o: espace.c
+	$(MPI) -o $@ -c $<
+
+voisin.o: voisin.c
 	$(MPI) `pkg-config --cflags --libs glib-2.0` -o $@ -c $<
 	
-main.o:	main.c espace.h
+main.o:	main.c espace.h voisin.h
 	$(MPI)  `pkg-config --cflags --libs glib-2.0` -o $@ -c $<
 		
 clean:
