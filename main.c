@@ -32,6 +32,7 @@ int main(int argc,char **argv)
 	int * espaceDistribue;
 	int espaceRecu[4];
 	int identifiant[2];
+	int annonceVoisin[5];
 	Espace e;
 	GList list;
 	
@@ -98,6 +99,24 @@ int main(int argc,char **argv)
 		printf("Espace de %d : ",rank);
 		affichageEspace(&e);
 		printf("Identifiant de %d : ( %d, %d )\n",rank, identifiant[0],identifiant[1]);
+	}
+	//Broadcast pour annoncer son espace à tous les processus, et chaque processus calcul s'il espace reçu est son voisin
+	for(i=1;i<size;i++)
+	{
+		if(rank == i)
+		{
+			annonceVoisin[0] = e.xdebut;
+			annonceVoisin[1] = e.xfin;
+			annonceVoisin[2] = e.ydebut;
+			annonceVoisin[3] = e.yfin;
+			annonceVoisin[4] = rank;
+		}
+		MPI_Bcast(annonceVoisin, 5, MPI_INT, i, MPI_COMM_WORLD);
+		if(rank != 0)
+		{
+			printf("%d a reçu [ %d, %d, %d, %d ] du proc %d \n", rank, annonceVoisin[0], annonceVoisin[1], annonceVoisin[2], annonceVoisin[3], annonceVoisin[4]);	
+			//S'il est un voisin, on l'ajjoute dans la liste de voisins
+		}
 	}
 	
 	MPI_Finalize();
