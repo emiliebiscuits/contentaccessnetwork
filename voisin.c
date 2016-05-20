@@ -3,12 +3,12 @@
 #include "voisin.h"
 #include <string.h>
 
-int * allocTab(const int num, const int x1, const int x2, const int y1, const int y2)
+int * allocTab(const int num, const int idx, const int idy)
 {
 	int *tab = (int*)malloc(3 * sizeof(int));
 	tab[0] = num;
-	tab[1] = (x1 + x2)/2;
-	tab[2] = (y1 + y2)/2;
+	tab[1] = idx;
+	tab[2] = idy;
 	return tab;
 }
 
@@ -20,21 +20,21 @@ void initVoisins(Voisins * const v)
 	v->voisinsDroite = NULL;
 }
 
-void ajouterHaut(Voisins * const v, const int num, const int x1, const int x2, const int y1, const int y2)
+void ajouterHaut(Voisins * const v, const int num, const int idx, const int idy)
 {
-	v->voisinsHaut = g_slist_append(v->voisinsHaut, allocTab(num, x1, x2, y1, y2));
+	v->voisinsHaut = g_slist_append(v->voisinsHaut, allocTab(num, idx, idy));
 }
-void ajouterBas(Voisins * const v, const int num, const int x1, const int x2, const int y1, const int y2)
+void ajouterBas(Voisins * const v, const int num, const int idx, const int idy)
 {
-	v->voisinsBas = g_slist_append(v->voisinsBas, allocTab(num, x1, x2, y1, y2));
+	v->voisinsBas = g_slist_append(v->voisinsBas, allocTab(num, idx, idy));
 }
-void ajouterGauche(Voisins * const v, const int num, const int x1, const int x2, const int y1, const int y2)
+void ajouterGauche(Voisins * const v, const int num, const int idx, const int idy)
 {
-	v->voisinsGauche = g_slist_append(v->voisinsGauche, allocTab(num, x1, x2, y1, y2));
+	v->voisinsGauche = g_slist_append(v->voisinsGauche, allocTab(num, idx, idy));
 }
-void ajouterDroite(Voisins * const v, const int num, const int x1, const int x2, const int y1, const int y2)
+void ajouterDroite(Voisins * const v, const int num, const int idx, const int idy)
 {
-	v->voisinsDroite = g_slist_append(v->voisinsDroite, allocTab(num, x1, x2, y1, y2));
+	v->voisinsDroite = g_slist_append(v->voisinsDroite, allocTab(num, idx, idy));
 }
 
 void supprimerUn(GSList * l, const int num)

@@ -26,7 +26,7 @@ int main(int argc,char **argv)
 	int * espaceDistribue;
 	int espaceRecu[4];
 	int identifiant[2];
-	int annonceVoisin[5];
+	int annonceVoisin[7];
 	Espace e;
 	Voisins v;
 	initVoisins(&v);
@@ -108,27 +108,29 @@ int main(int argc,char **argv)
 			annonceVoisin[2] = e.ydebut;
 			annonceVoisin[3] = e.yfin;
 			annonceVoisin[4] = rank;
+			annonceVoisin[5] = identifiant[0];
+			annonceVoisin[6] = identifiant[1];
 		}
-		MPI_Bcast(annonceVoisin, 5, MPI_INT, i, MPI_COMM_WORLD);
+		MPI_Bcast(annonceVoisin, 7, MPI_INT, i, MPI_COMM_WORLD);
 		if(rank != 0 && rank != i)
 		{
 			//printf("%d a reçu [ %d, %d, %d, %d ] du proc %d \n", rank, annonceVoisin[0], annonceVoisin[1], annonceVoisin[2], annonceVoisin[3], annonceVoisin[4]);	
 			//S'il est un voisin, on l'ajoute dans la liste de voisins
 			if(estVoisinHaut(&e,annonceVoisin[0], annonceVoisin[1], annonceVoisin[2], annonceVoisin[3]))
 			{
-				ajouterHaut(&v, annonceVoisin[4], annonceVoisin[0], annonceVoisin[1], annonceVoisin[2], annonceVoisin[3]);
+				ajouterHaut(&v,annonceVoisin[4],annonceVoisin[5],annonceVoisin[6]);
 			}
 			else if(estVoisinBas(&e,annonceVoisin[0], annonceVoisin[1], annonceVoisin[2], annonceVoisin[3]))
 			{
-				ajouterBas(&v, annonceVoisin[4], annonceVoisin[0], annonceVoisin[1], annonceVoisin[2], annonceVoisin[3]);
+				ajouterBas(&v, annonceVoisin[4],annonceVoisin[5],annonceVoisin[6]);
 			}
 			else if(estVoisinGauche(&e,annonceVoisin[0], annonceVoisin[1], annonceVoisin[2], annonceVoisin[3]))
 			{
-				ajouterGauche(&v, annonceVoisin[4], annonceVoisin[0], annonceVoisin[1], annonceVoisin[2], annonceVoisin[3]);
+				ajouterGauche(&v, annonceVoisin[4],annonceVoisin[5],annonceVoisin[6]);
 			}
 			else if(estVoisinDroite(&e,annonceVoisin[0], annonceVoisin[1], annonceVoisin[2], annonceVoisin[3]))
 			{
-				ajouterDroite(&v, annonceVoisin[4], annonceVoisin[0], annonceVoisin[1], annonceVoisin[2], annonceVoisin[3]);
+				ajouterDroite(&v, annonceVoisin[4],annonceVoisin[5],annonceVoisin[6]);
 			}
 		}
 	}
@@ -149,7 +151,7 @@ int main(int argc,char **argv)
 			coordonnee[1] = tirage(i*2,0,1000);
 			
 			//Envoyer à un processus aléatoire
-			MPI_Send(&coordonnee, 2, MPI_INT, tirage(i,1,size), 0, MPI_COMM_WORLD);
+			MPI_Send(&coordonnee, 2, MPI_INT, tirage(i,1,size-1), 0, MPI_COMM_WORLD);
 			//Attendre la demande de recupération de données
 			MPI_Recv(&num, 1, MPI_INT, MPI_ANY_SOURCE, 0,MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 			//Envoyer la donnée

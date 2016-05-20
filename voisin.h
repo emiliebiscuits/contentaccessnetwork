@@ -11,14 +11,14 @@ struct voisins{
 };
 typedef struct voisins Voisins;
 
-int * allocTab(const int, const int, const int, const int, const int);
+int * allocTab(const int, const int, const int);
 
 void initVoisins(Voisins * const);
 
-void ajouterHaut(Voisins * const, const int, const int, const int, const int, const int);
-void ajouterBas(Voisins * const, const int, const int, const int, const int, const int);
-void ajouterGauche(Voisins * const, const int, const int, const int, const int, const int);
-void ajouterDroite(Voisins * const, const int, const int, const int, const int, const int);
+void ajouterHaut(Voisins * const, const int, const int, const int);
+void ajouterBas(Voisins * const,  const int, const int, const int);
+void ajouterGauche(Voisins * const,  const int, const int, const int);
+void ajouterDroite(Voisins * const,  const int, const int, const int);
 
 void supprimerHaut(Voisins * const, const int);
 void supprimerBas(Voisins * const, const int);
