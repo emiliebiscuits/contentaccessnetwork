@@ -21,7 +21,7 @@ int main(int argc,char **argv)
 	MPI_Comm_size(MPI_COMM_WORLD,&size);
 	//printf("Hello world from %d(out of %d procs.!)\n",rank,size);
 	
-	int commande, i;
+	int  i;
 	int demande[2];
 	int * espaceDistribue;
 	int espaceRecu[4];
@@ -30,6 +30,8 @@ int main(int argc,char **argv)
 	Espace e;
 	Voisins v;
 	initVoisins(&v);
+	int coordonnee[2];
+	int sum;
 	
 	if(rank == 0)
 	{
@@ -131,12 +133,76 @@ int main(int argc,char **argv)
 		}
 	}
 	//Afficher les voisins
-	if(rank != 0 && rank != i)
+	if(rank != 0)
 	{
 		afficherVoisins(&v,rank);
-		viderVoisin(&v);
 	}
-	
+	MPI_Barrier(MPI_COMM_WORLD); 
+	//Partie 2
+	if(rank==0)
+	{
+		int num;
+		//Initialiser et envoyer les données.
+		for(i = 1; i < 5; i++)
+		{
+			coordonnee[0] = tirage(i,0,1000);
+			coordonnee[1] = tirage(i*2,0,1000);
+			
+			//Envoyer à un processus aléatoire
+			MPI_Send(&coordonnee, 2, MPI_INT, tirage(i,1,size), 0, MPI_COMM_WORLD);
+			//Attendre la demande de recupération de données
+			MPI_Recv(&num, 1, MPI_INT, MPI_ANY_SOURCE, 0,MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+			//Envoyer la donnée
+			sum = coordonnee[0] + coordonnee[1];
+			MPI_Send(&sum, 1,  MPI_INT, num, 0, MPI_COMM_WORLD);
+			//Attendre l'aquittement
+			MPI_Recv(NULL, 0, MPI_INT, num, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+			
+		}
+		//Annoncer la fin des données
+		for(i=1;i<size;i++)
+		{
+			coordonnee[0] = -1;
+			coordonnee[1] = -1;
+			MPI_Send(&coordonnee, 2, MPI_INT, i, 0, MPI_COMM_WORLD);
+			
+		}
+	}
+	else
+	{
+		int arret = 0;
+		//Tant qu'il a pas reçu le message d'arret
+		while(arret == 0)
+		{
+			//Recevoir les coordonnees
+			MPI_Recv(&coordonnee, 2, MPI_INT, MPI_ANY_SOURCE, 0,MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+			printf("%d recu coor [%d,%d]\n",rank,coordonnee[0],coordonnee[1]);
+			//Répondre si c'est dans sa zone
+			if(estDedans(&e,coordonnee[0],coordonnee[1]))
+			{
+				printf("dans %d\n",rank);
+				MPI_Send(&rank, 1, MPI_INT,0, 0, MPI_COMM_WORLD);
+				//Attendre la donnee
+				MPI_Recv(&sum, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+				//Stoker la donnee
+				
+				//Envoyer l'aquittement
+				MPI_Send(NULL, 0,  MPI_INT, 0, 0, MPI_COMM_WORLD);
+			}
+			//Arreter la boucle si (-1,-1)
+			else if(coordonnee[0]==-1 && coordonnee[1]==-1)
+			{
+				arret = 1;
+			}
+			//Router à un voisin si c'est pas dans sa zone
+			else
+			{
+				printf("pas dans %d mais envoie à %d\n",rank, trouverProche(&v, coordonnee[0],coordonnee[1], e.xdebut, e.xfin, e.ydebut, e.yfin));
+				MPI_Send(&coordonnee, 2, MPI_INT, trouverProche(&v, coordonnee[0],coordonnee[1], e.xdebut, e.xfin, e.ydebut, e.yfin), 0, MPI_COMM_WORLD);
+			}			
+		}
+	}
+	viderVoisin(&v);
 	MPI_Finalize();
 	return 0;
 }

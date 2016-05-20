@@ -26,6 +26,7 @@ void supprimerGauche(Voisins * const, const int);
 void supprimerDroite(Voisins * const, const int);
 void supprimerUn(GSList *, const int);
 
+int trouverProche(Voisins * const, const int, const int, const int, const int, const int, const int);
 
 void afficherGSList(GSList * const, const int, const int);
 void afficherVoisins(Voisins * const, const int);

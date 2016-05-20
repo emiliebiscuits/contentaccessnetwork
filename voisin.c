@@ -119,3 +119,24 @@ void viderVoisin(Voisins * const v)
 	g_slist_free_full(v->voisinsGauche, pf);
 	g_slist_free_full(v->voisinsDroite, pf);
 }
+
+int trouverProche(Voisins * const v, const int x, const int y, const int xdebut, const int xfin, const int ydebut, const int yfin)
+{
+	
+	if(y<ydebut)
+	{
+		return ((int*)v->voisinsHaut->data)[0];
+	}
+	else if(y>yfin)
+	{
+		return ((int*)v->voisinsBas->data)[0];
+	}
+	else if(x<xdebut)
+	{
+		return ((int*)v->voisinsGauche->data)[0];
+	}
+	else
+	{
+		return ((int*)v->voisinsDroite->data)[0];
+	}
+}
