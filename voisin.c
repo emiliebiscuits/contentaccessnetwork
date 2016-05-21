@@ -12,7 +12,7 @@ int * allocTab(const int num, const int idx, const int idy)
 	return tab;
 }
 
-void initVoisins(Voisins * const v)
+void initVoisins(Voisins * v)
 {
 	v->voisinsHaut = NULL;
 	v->voisinsBas = NULL;
@@ -110,7 +110,7 @@ void afficherVoisins(Voisins * const v, const int num)
 	afficherGSList(v->voisinsDroite, num, 4);
 }
 
-void viderVoisin(Voisins * const v)
+void viderVoisin(Voisins * v)
 {
 	void (*pf)(void *);
 	pf = free;

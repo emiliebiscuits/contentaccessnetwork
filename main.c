@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "espace.h"
 #include "voisin.h"
+#include "donnee.h"
 
 int tirage(int rang, int debut, int fin)
 {
@@ -30,8 +31,11 @@ int main(int argc,char **argv)
 	Espace e;
 	Voisins v;
 	initVoisins(&v);
+	Donnees d;
+	initDonnees(&d);
 	int coordonnee[2];
 	int sum;
+	
 	
 	if(rank == 0)
 	{
@@ -187,7 +191,7 @@ int main(int argc,char **argv)
 				//Attendre la donnee
 				MPI_Recv(&sum, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 				//Stoker la donnee
-				
+				ajouterDonnee(&d,coordonnee[0],coordonnee[1],sum);
 				//Envoyer l'aquittement
 				MPI_Send(NULL, 0,  MPI_INT, 0, 0, MPI_COMM_WORLD);
 			}
@@ -204,6 +208,14 @@ int main(int argc,char **argv)
 			}			
 		}
 	}
+	MPI_Barrier(MPI_COMM_WORLD);
+	if(rank!=0)
+	{
+		afficherDonnees(&d, rank);
+	}
+	//Partie 3
+	//Partie 4
+	viderDonnees(&d);
 	viderVoisin(&v);
 	MPI_Finalize();
 	return 0;

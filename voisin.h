@@ -13,7 +13,7 @@ typedef struct voisins Voisins;
 
 int * allocTab(const int, const int, const int);
 
-void initVoisins(Voisins * const);
+void initVoisins(Voisins *);
 
 void ajouterHaut(Voisins * const, const int, const int, const int);
 void ajouterBas(Voisins * const,  const int, const int, const int);
@@ -31,5 +31,5 @@ int trouverProche(Voisins * const, const int, const int, const int, const int, c
 void afficherGSList(GSList * const, const int, const int);
 void afficherVoisins(Voisins * const, const int);
 
-void viderVoisin(Voisins * const);
+void viderVoisin(Voisins *);
 #endif

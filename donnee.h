@@ -9,8 +9,16 @@ struct donnee{
 };
 typedef struct donnee Donnee;
 
-typedef GSList Donnees; 
+struct donnees{
+	GSList *contenu;
+};
 
+typedef struct donnees Donnees; 
 
+Donnee * allocDonnee(const int, const int, const int);
+void initDonnees(Donnees *);
+void ajouterDonnee(Donnees * , const int, const int, const int);
+void afficherDonnees(Donnees * const, const int);
+void viderDonnees(Donnees *);
 #endif
 
