@@ -157,3 +157,14 @@ int estVoisin(const Espace * const e, const int x1, const int x2, const int y1, 
 	}
 	return 0;
 }
+
+void logEspace(const Espace * const e, const int rank)
+{
+	FILE* fichier = NULL;
+    fichier = fopen("test.txt", "w");
+    if (fichier != NULL)
+    {
+        fprintf(fichier,"%d [xdebut : %d  xfin : %d  ydebut : %d  yfin : %d]\n", rank, e->xdebut, e->xfin, e->ydebut, e->yfin);
+        fclose(fichier);
+    }
+}

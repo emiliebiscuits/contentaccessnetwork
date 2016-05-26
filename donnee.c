@@ -18,6 +18,7 @@ void ajouterDonnee(Donnees * d, const int x, const int y, const int val)
 {
 	d->contenu = g_slist_append(d->contenu, allocDonnee(x, y, val));
 }
+
 void afficherDonnees(Donnees * const d, const int rank)
 {
 	GSList * temp = d->contenu;
@@ -34,4 +35,19 @@ void viderDonnees(Donnees * d)
 	void (*pf)(void *);
 	pf = free;
 	g_slist_free_full(d->contenu, pf);
+}
+int trouverValeur(Donnees * d, const int x, const int y)
+{
+	GSList * temp = d->contenu;
+	Donnee * ptr = NULL;
+	while(temp!=NULL)
+	{
+		ptr = (Donnee*)temp->data;
+		if(ptr->pos[0]==x && ptr->pos[1]==y)
+		{
+			return ptr->valeur;
+		}
+		temp = temp->next;
+	}
+	return -1;
 }

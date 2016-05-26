@@ -14,6 +14,8 @@ void affectationEspace(Espace * const,const int, const int, const int, const int
 
 void affichageEspace(const Espace * const);
 
+void logEspace(const Espace * const, const int rank);
+
 int estDedans(const Espace * const, const int, const int);
 
 void decouperEspace(Espace * const, int * const, int * const);
