@@ -18,7 +18,9 @@ void logEspace(const Espace * const, const int rank);
 
 int estDedans(const Espace * const, const int, const int);
 
-void decouperEspace(Espace * const, int * const, int * const);
+void decouperEspaceEnDeux(Espace * const, int * const, int * const);
+
+int* decouperEspace(Espace * const, const int * const);
 
 int estVoisin(const Espace * const, const int, const int, const int, const int);
 
@@ -29,4 +31,8 @@ int estVoisinBas(const Espace * const, const int, const int, const int, const in
 int estVoisinGauche(const Espace * const, const int, const int, const int, const int);
 
 int estVoisinDroite(const Espace * const, const int, const int, const int, const int);
+
+void remplirTabParEspace(const Espace * const, int * const);
+
+int estValide(const Espace * const);
 #endif

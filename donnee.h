@@ -22,5 +22,7 @@ void afficherDonnees(Donnees * const, const int);
 int trouverValeur(Donnees * , const int, const int);
 void logDonnees(Donnees * const, const int);
 void viderDonnees(Donnees *);
+int tailleDonnees(Donnees * const, const int * const);
+int *tabTransferD(Donnees * const, const int * const);
 #endif
 

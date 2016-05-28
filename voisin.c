@@ -22,19 +22,27 @@ void initVoisins(Voisins * v)
 
 void ajouterHaut(Voisins * const v, const int num, const int idx, const int idy)
 {
-	v->voisinsHaut = g_slist_append(v->voisinsHaut, allocTab(num, idx, idy));
+	int *ptr = allocTab(num, idx, idy);
+    v->voisinsHaut = g_slist_insert_sorted(v->voisinsHaut,ptr,comparerX);
+	//v->voisinsHaut = g_slist_append(v->voisinsHaut, ptr);
 }
 void ajouterBas(Voisins * const v, const int num, const int idx, const int idy)
 {
-	v->voisinsBas = g_slist_append(v->voisinsBas, allocTab(num, idx, idy));
+	int *ptr = allocTab(num, idx, idy);
+    v->voisinsBas = g_slist_insert_sorted(v->voisinsBas, ptr,comparerX);
+	//v->voisinsBas = g_slist_append(v->voisinsBas, allocTab(num, idx, idy));
 }
 void ajouterGauche(Voisins * const v, const int num, const int idx, const int idy)
 {
-	v->voisinsGauche = g_slist_append(v->voisinsGauche, allocTab(num, idx, idy));
+	int *ptr = allocTab(num, idx, idy);
+    v->voisinsGauche = g_slist_insert_sorted(v->voisinsGauche, ptr,comparerY);
+	//v->voisinsGauche = g_slist_append(v->voisinsGauche, allocTab(num, idx, idy));
 }
 void ajouterDroite(Voisins * const v, const int num, const int idx, const int idy)
 {
-	v->voisinsDroite = g_slist_append(v->voisinsDroite, allocTab(num, idx, idy));
+	int *ptr = allocTab(num, idx, idy);
+    v->voisinsDroite = g_slist_insert_sorted(v->voisinsDroite, ptr, comparerY);
+	//v->voisinsDroite = g_slist_append(v->voisinsDroite, allocTab(num, idx, idy));
 }
 
 void supprimerUn(GSList * l, const int num)
@@ -139,4 +147,94 @@ int trouverProche(Voisins * const v, const int x, const int y, const int xdebut,
 	{
 		return ((int*)v->voisinsDroite->data)[0];
 	}
+}
+
+int comparerX(gconstpointer a, gconstpointer b)
+{
+	int grand = ((int*)a)[1];
+	int petit = ((int*)b)[1];
+	return (grand>petit);
+}
+int comparerY(gconstpointer a, gconstpointer b)
+{
+	int grand = ((int*)a)[2];
+	int petit = ((int*)b)[2];
+	return (grand>petit);
+}
+
+/*void trierVoisin(Voisins * const v)
+{
+	v->voisinsHaut = g_slist_sort(v->voisinsHaut,comparerX);
+	v->voisinsBas = g_slist_sort(v->voisinsBas,comparerX);
+	v->voisinsGauche = g_slist_sort(v->voisinsGauche,comparerY);
+	v->voisinsDroite = g_slist_sort(v->voisinsDroite,comparerY);
+}*/
+
+int tailleVoisins(const Voisins * const v)
+{
+	int h = g_slist_length (v->voisinsHaut);
+	int b = g_slist_length (v->voisinsBas);
+	int g = g_slist_length (v->voisinsGauche);
+	int d = g_slist_length (v->voisinsDroite);
+	return (h + b + g + d + 3);
+}
+
+int *tabTransferV(const Voisins * const v)
+{
+	int taille = tailleVoisins(v);
+	int *tab = (int*)malloc(taille * sizeof(int));
+	GSList * temp = v->voisinsHaut;
+	int * ptr = NULL;
+	int count = 0;
+	while(temp!=NULL)
+	{
+		ptr = (int*)temp->data;
+		tab[count] = ptr[0];
+		tab[count+1] = ptr[1];
+		tab[count+2] = ptr[2];
+		count+=3;
+		temp = temp->next;
+	}
+	tab[count] = -1;
+	count+=1;
+	
+	temp = v->voisinsBas;
+	ptr = NULL;
+	while(temp!=NULL)
+	{
+		ptr = (int*)temp->data;
+		tab[count] = ptr[0];
+		tab[count+1] = ptr[1];
+		tab[count+2] = ptr[2];
+		count+=3;
+		temp = temp->next;
+	}
+	tab[count] = -1;
+	count+=1;
+	temp = v->voisinsGauche;
+	ptr = NULL;
+	while(temp!=NULL)
+	{
+		ptr = (int*)temp->data;
+		tab[count] = ptr[0];
+		tab[count+1] = ptr[1];
+		tab[count+2] = ptr[2];
+		count+=3;
+		temp = temp->next;
+	}
+	tab[count] = -1;
+	count+=1;
+	temp = v->voisinsDroite;
+	ptr = NULL;
+	while(temp!=NULL)
+	{
+		ptr = (int*)temp->data;
+		tab[count] = ptr[0];
+		tab[count+1] = ptr[1];
+		tab[count+2] = ptr[2];
+		count+=3;
+		temp = temp->next;
+	}
+	
+	return tab;
 }

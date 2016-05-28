@@ -32,4 +32,14 @@ void afficherGSList(GSList * const, const int, const int);
 void afficherVoisins(Voisins * const, const int);
 
 void viderVoisin(Voisins *);
+
+//void trierVoisin(Voisins * const);
+
+int comparerX(gconstpointer a, gconstpointer b);
+int comparerY(gconstpointer a, gconstpointer b);
+
+int tailleVoisins(const Voisins * const);
+
+int *tabTransferV(const Voisins * const);
+
 #endif

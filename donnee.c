@@ -51,3 +51,42 @@ int trouverValeur(Donnees * d, const int x, const int y)
 	}
 	return -1;
 }
+
+int tailleDonnees(Donnees * const d, const int * const esp)
+{
+	GSList * temp = d->contenu;
+	Donnee * ptr = NULL;
+	int count = 0;
+	while(temp!=NULL)
+	{
+		ptr = (Donnee*)temp->data;
+		if((ptr->pos[0]>=esp[0] && ptr->pos[0]<=esp[1]) || (ptr->pos[1]>=esp[2] && ptr->pos[1]<=esp[3]))
+		{
+			count+=1;
+		} 
+		temp = temp->next;
+	}
+	return 3*count;
+}
+
+int *tabTransferD(Donnees * const d, const int * const esp)
+{
+	int taille = tailleDonnees(d, esp);
+	int * tab = (int*)malloc(taille*sizeof(taille));
+	GSList * temp = d->contenu;
+	Donnee * ptr = NULL;
+	int count = 0;
+	while(temp!=NULL)
+	{
+		ptr = (Donnee*)temp->data;
+		if((ptr->pos[0]>=esp[0] && ptr->pos[0]<=esp[1]) || (ptr->pos[1]>=esp[2] && ptr->pos[1]<=esp[3]))
+		{
+			tab[count] = ptr->pos[0];
+			tab[count+1] = ptr->pos[1];
+			tab[count+2] = ptr->valeur;
+			count+=3;
+		} 
+		temp = temp->next;
+	}
+	return tab;
+}

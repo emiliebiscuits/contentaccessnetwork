@@ -23,7 +23,7 @@ int estDedans(const Espace * const e, const int x, const int y)
 	return 0;
 }
 
-void decouperEspace(Espace * const e, int * const identifiant, int * const retour)
+void decouperEspaceEnDeux(Espace * const e, int * const identifiant, int * const retour)
 {
 	int temp;
 	if(e->xfin - e->xdebut >= e->yfin - e->ydebut)
@@ -167,4 +167,42 @@ void logEspace(const Espace * const e, const int rank)
         fprintf(fichier,"%d [xdebut : %d  xfin : %d  ydebut : %d  yfin : %d]\n", rank, e->xdebut, e->xfin, e->ydebut, e->yfin);
         fclose(fichier);
     }
+}
+
+
+int * decouperEspace(Espace * const e, const int * const recu)
+{
+	int * retour = NULL;
+	if(recu[0]==e->xdebut && recu[1]<=e->xfin)
+	{
+		retour = (int*)malloc(4*sizeof(int));
+		retour[0] = recu[0];
+		retour[1] = recu[1];
+		retour[2] = e->ydebut;
+		retour[3] = e->yfin;
+		e->xdebut = retour[1] + 1;		
+	}
+	else if(recu[2]==e->ydebut && recu[3]<=e->yfin)
+	{
+		retour = (int*)malloc(4*sizeof(int));
+		retour[0] = e->xdebut;
+		retour[1] = e->xfin;
+		retour[2] = recu[2];
+		retour[3] = recu[3];
+		e->ydebut = retour[3] + 1;	
+	}
+	return retour;
+}
+
+void remplirTabParEspace(const Espace * const e, int * const tab)
+{
+	tab[0] = e->xdebut;
+	tab[1] = e->xfin;
+	tab[2] = e->ydebut;
+	tab[3] = e->yfin;
+}
+
+int estValide(const Espace * const e)
+{
+	return ((e->xdebut<e->xfin)&&(e->ydebut<e->yfin));
 }

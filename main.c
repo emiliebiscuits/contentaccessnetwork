@@ -16,6 +16,70 @@ int tirage(int rang, int debut, int fin)
 
 
 
+
+void suppression(Voisins *v, GSList *l, Espace *e, Donnees *d, int rank)
+{
+	//Pour chaque voisin de haut
+	GSList * temp = l;
+	int *ptr_i = NULL;
+	int taille,reponse;
+	int espaceRecu[4];
+	int *espaceDistribue;		
+	int *voisinsTransfer;
+	int *donneesTransfer;
+	while(temp!=NULL && estValide(e))
+	{
+		ptr_i = (int*)temp->data;
+		//Demander son espace
+		MPI_Send(&rank, 1, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD);
+		//Recevoir son espace
+		MPI_Recv(espaceRecu, 4, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+		//Calculer si cet espace peut s'agrandir pour remplacer le noeud à supprimer
+		//On decoupe l'espace si le voisin peut remplacer patiellement l'espace
+		espaceDistribue = decouperEspace(e,espaceRecu);
+		//Si cet espace ne peut pas s'agrandir
+		if(espaceDistribue == NULL)
+		{
+			reponse = 0;
+			MPI_Send(&reponse, 1, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD);
+		}
+		//Si cet espace peut remplacer entierement ou partiellement
+		else
+		{
+			reponse = 1;
+			MPI_Send(&reponse, 1, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD);
+			MPI_Recv(NULL, 0, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+			//Lui distribuer l'espace pour agrandir
+			MPI_Send(espaceDistribue, 4, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD);
+			MPI_Recv(NULL, 0, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+			//Lui dire la taille des données associées à l'espace distribué
+			taille = tailleDonnees(d,espaceDistribue);
+			MPI_Send(&taille, 1, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD);
+			MPI_Recv(NULL, 0, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+			//Lui envoyer des donnees associées à l'espace distribué
+			donneesTransfer = tabTransferD(d,espaceDistribue);
+			free(espaceDistribue);
+			//MPI_Send(donneesTransfer, taille, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD);
+			free(donneesTransfer);
+			//Lui dire la taille des voisins stockés
+			taille = tailleVoisins(v);
+			MPI_Send(&taille, 1, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD);
+			MPI_Recv(NULL, 0, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+			//Lui envoyer tous les voisins
+			voisinsTransfer = tabTransferV(v);
+			//MPI_Send(voisinsTransfer, taille, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD);
+			
+			free(voisinsTransfer);
+			printf("1....\n");
+		}
+		temp = temp->next;
+	}
+}
+
+
+
+
+
 int main(int argc,char **argv)
 {
 	int size, rank;
@@ -28,6 +92,7 @@ int main(int argc,char **argv)
 	int demande[2];
 	int * espaceDistribue;
 	int espaceRecu[4];
+	int espaceEnvoie[4];
 	int identifiant[2];
 	int annonceVoisin[7];
 	Espace e;
@@ -39,7 +104,14 @@ int main(int argc,char **argv)
 	int sum;
 	int arret;
 	int num;
-	
+	int supp = 0;
+	int reponse;
+	GSList * temp = NULL;
+	Donnee * ptr_d = NULL;
+	int * ptr_i = NULL;
+	int taille;
+	int * voisinsTransfer;
+	int * donneesTransfer;
 	
 	if(rank == 0)
 	{
@@ -95,7 +167,7 @@ int main(int argc,char **argv)
 			if(estDedans(&e,demande[0],demande[1]))
 			{
 				espaceDistribue = (int*)malloc(4*sizeof(int)); 
-				decouperEspace(&e, identifiant, espaceDistribue);
+				decouperEspaceEnDeux(&e, identifiant, espaceDistribue);
 				MPI_Send(espaceDistribue, 4, MPI_INT, i, 0, MPI_COMM_WORLD);
 				free(espaceDistribue);
 			}
@@ -191,11 +263,11 @@ int main(int argc,char **argv)
 		{
 			//Recevoir les coordonnees
 			MPI_Recv(&coordonnee, 2, MPI_INT, MPI_ANY_SOURCE, 0,MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-			printf("%d recu coor [%d,%d]\n",rank,coordonnee[0],coordonnee[1]);
+			//printf("%d recu coor [%d,%d]\n",rank,coordonnee[0],coordonnee[1]);
 			//Répondre si c'est dans sa zone
 			if(estDedans(&e,coordonnee[0],coordonnee[1]))
 			{
-				printf("dans %d\n",rank);
+				//printf("dans %d\n",rank);
 				MPI_Send(&rank, 1, MPI_INT,0, 0, MPI_COMM_WORLD);
 				//Attendre la donnee
 				MPI_Recv(&sum, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
@@ -212,13 +284,13 @@ int main(int argc,char **argv)
 			//Router à un voisin si c'est pas dans sa zone
 			else
 			{
-				printf("pas dans %d mais envoie à %d\n",rank, trouverProche(&v, coordonnee[0],coordonnee[1], e.xdebut, e.xfin, e.ydebut, e.yfin));
+				//printf("pas dans %d mais envoie à %d\n",rank, trouverProche(&v, coordonnee[0],coordonnee[1], e.xdebut, e.xfin, e.ydebut, e.yfin));
 				MPI_Send(&coordonnee, 2, MPI_INT, trouverProche(&v, coordonnee[0],coordonnee[1], e.xdebut, e.xfin, e.ydebut, e.yfin), 0, MPI_COMM_WORLD);
 			}			
 		}
 	}
 	MPI_Barrier(MPI_COMM_WORLD);
-	afficherDonnees(&d, rank);
+	//afficherDonnees(&d, rank);
 	MPI_Barrier(MPI_COMM_WORLD);
 	//Partie 3
 	//Recherche broadcast
@@ -227,19 +299,19 @@ int main(int argc,char **argv)
 		//struct timeval stop, start;
 		//gettimeofday(&start, NULL);
 		//Pour chaque coordonnee
-		GSList * temp = d.contenu;
-		Donnee * ptr = NULL;
+		temp = d.contenu;
+		ptr_d = NULL;
 		while(temp != NULL)
 		{
-			ptr = (Donnee*)temp->data;
+			ptr_d = (Donnee*)temp->data;
 			//Pour chaque processus
 			for(i=1;i<size;i++)
 			{
-				MPI_Send(ptr->pos, 2, MPI_INT, i, 0, MPI_COMM_WORLD);
+				MPI_Send(ptr_d->pos, 2, MPI_INT, i, 0, MPI_COMM_WORLD);
 				//printf("send (%d %d)\n",ptr->pos[0],ptr->pos[1]);
 			}
 			MPI_Recv(&sum, 1, MPI_INT,MPI_ANY_SOURCE, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-			printf("sum : %d\n", sum);
+			//printf("sum : %d\n", sum);
 			temp = temp->next;
 		}
 		coordonnee[0] = -1;
@@ -279,17 +351,17 @@ int main(int argc,char **argv)
 	if(rank == 0)
 	{
 		//Pour chaque coordonnee
-		GSList * temp = d.contenu;
-		Donnee * ptr = NULL;
+		temp = d.contenu;
+		ptr_d = NULL;
 		while(temp != NULL)
 		{
-			ptr = (Donnee*)temp->data;
+			ptr_d = (Donnee*)temp->data;
 			//Pour chaque processus
 			//Tirer aleatoirement un processus 
-			MPI_Send(ptr->pos, 2, MPI_INT, tirage(0, 1, size-1), 0, MPI_COMM_WORLD);
+			MPI_Send(ptr_d->pos, 2, MPI_INT, tirage(0, 1, size-1), 0, MPI_COMM_WORLD);
 			//Attendre une reponse 
 			MPI_Recv(&sum, 1, MPI_INT,MPI_ANY_SOURCE, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-			printf("sum : %d\n", sum);
+			//printf("sum : %d\n", sum);
 			temp = temp->next;
 		}
 		coordonnee[0] = -1;
@@ -330,7 +402,7 @@ int main(int argc,char **argv)
 	}
 	MPI_Barrier(MPI_COMM_WORLD);
 	//Partie 4
-	/*if(rank==0)
+	if(rank==0)
 	{
 		//Retirer une cle
 		coordonnee[0] = tirage(0, 0, 1000);
@@ -338,23 +410,29 @@ int main(int argc,char **argv)
 		//Retirer un numero de processus et lui envoyer les coordonnees
 		MPI_Send(coordonnee, 2, MPI_INT, tirage(10, 1, size-1), 0, MPI_COMM_WORLD);
 		//Attendre que le noeud recoive la demande de supression
-		//MPI_Recv
-		//Dire aux noeuds de se preparer à une eventuelle supression d'un voisin
-		coordonnee[0] = -1;
-		coordonnee[1] = -1;
+		MPI_Recv(&num, 1, MPI_INT, MPI_ANY_SOURCE, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+		//Dire aux noeuds de se preparer à l'état de supression
+		demande[0] = -1;
+		demande[1] = -1;
 		for(i=1;i<size;i++)
 		{
-			MPI_Send(coordonnee, 2, MPI_INT, tirage(10, 1, size-1), 0, MPI_COMM_WORLD);
+			MPI_Send(demande, 2, MPI_INT, i, 0, MPI_COMM_WORLD);
 		}
 		//Attendre la fin de la supression
-		//MPI_Recv
+		MPI_Recv(NULL, 0, MPI_INT, num, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+		printf("fin recu\n");
+		num = -1;
+		for(i=1;i<size;i++)
+		{
+			MPI_Send(&num, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
+		}
 	}
 	else
 	{	
-		MPI_Recv(&coordonnee, 2, MPI_INT, MPI_ANY_SOURCE, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 		arret = 0;
 		while(arret != 1)
 		{
+			MPI_Recv(&coordonnee, 2, MPI_INT, MPI_ANY_SOURCE, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 			//Si (-1,-1), arreter
 			if(coordonnee[0]==-1 && coordonnee[1]==-1)
 			{
@@ -364,6 +442,7 @@ int main(int argc,char **argv)
 			else if(estDedans(&e,coordonnee[0],coordonnee[1]))
 			{
 				MPI_Send(&rank, 0, MPI_INT, 0, 0, MPI_COMM_WORLD);
+				supp = 1;
 			}
 			//Sinon trouver un voisin et lui envoyer
 			else
@@ -372,23 +451,70 @@ int main(int argc,char **argv)
 			}
 		}
 		//Noeud en supression
-		//Envoyer son espace aux voisins
-		//Recevoir une réponse d'un voisin qui peut prendre la place
-		//Donner ses voisins, ses donnees à ce voisins
-		//Desallouer ses voisins & donnees
-		//Annoncer aux autres voisins le noeud qui prend la place 
-		//Envoyer confirmation au coordinateur
+		if(supp == 1)
+		{
+			printf("rank à supprimer : %d \n",rank);
+			//Pour chaque voisin de haut
+			suppression(&v, v.voisinsHaut, &e, &d, rank);
+			//Pour chaque voisin de bas
+			suppression(&v, v.voisinsBas, &e, &d, rank);
+			//Pour chaque voisin de gauche
+			suppression(&v, v.voisinsGauche, &e, &d, rank);
+			//Pour chaque voisin de droite
+			suppression(&v, v.voisinsDroite, &e, &d, rank);
+				
+			
+			MPI_Send(NULL, 0, MPI_INT, 0, 0, MPI_COMM_WORLD);
+		}
+		//Noeuds pas en suppression
+		else
+		{
+			arret = 0;
+			while(arret != 1)
+			{
+				//Attendre une commande
+				MPI_Recv(&num, 1, MPI_INT, MPI_ANY_SOURCE, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+				//Si -1, fin de suppression
+				if(num == -1)
+				{
+					arret = 1;
+				}
+				//Sinon un autre num, répondre son espace
+				else
+				{
+					remplirTabParEspace(&e,espaceEnvoie);	
+					MPI_Send(&espaceEnvoie, 4, MPI_INT, num, 0, MPI_COMM_WORLD);
+					//Recevoir une demande éventuelle demande de transfert
+					MPI_Recv(&reponse, 1, MPI_INT, num, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+					if(reponse != 0)
+					{
+						MPI_Send(NULL, 0, MPI_INT, num, 0, MPI_COMM_WORLD);
+						//Recevoir l'espace
+						MPI_Recv(&espaceRecu, 4, MPI_INT, num, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+						MPI_Send(NULL, 0, MPI_INT, num, 0, MPI_COMM_WORLD);
+						//Recevoir la taille des donnees
+						MPI_Recv(&taille, 1, MPI_INT, num, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+						printf("rank %d taille d %d \n",rank, taille);
+						//Recevoir les donnees
+						//donneesTransfer = (int*)malloc(taille * sizeof(int));
+						//MPI_Recv(donneesTransfer, taille, MPI_INT, num, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+						//Recevoir la taille des voisins
+						MPI_Send(NULL, 0, MPI_INT, num, 0, MPI_COMM_WORLD);
+						MPI_Recv(&taille, 1, MPI_INT, num, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+						printf("taille v %d \n",taille);
+						MPI_Send(NULL, 0, MPI_INT, num, 0, MPI_COMM_WORLD);
+						//Recevoir les voisins
+						voisinsTransfer = (int*)malloc(taille * sizeof(int));
+						//MPI_Recv(voisinsTransfer, taille, MPI_INT, num, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+						free(donneesTransfer);
+						free(voisinsTransfer);
+					}
+				}	
+			}
+		}
 		
-		//Noeuds voisins
-		//Si l'espace reçu correspond, donner une réponse au noeud en suppression
-		//Recevoir les voisins et les donnees
-		//Mettre à jour ses voisins et ses donnees
-		//Sinon attendre l'annonce qui dit un noeud va prendre la place
-		//Mettre à jour ses voisins
-		
-		//Autre noeuds
-		//Rien faire
-	}*/
+	}
+	printf("co %d\n",rank);
 	MPI_Barrier(MPI_COMM_WORLD);
 	//Desallocations
 	viderDonnees(&d);
