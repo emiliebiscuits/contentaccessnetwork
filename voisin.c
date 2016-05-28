@@ -104,7 +104,7 @@ void afficherGSList(GSList * const l, const int num, const int direction)
 	}
 	while(temp != NULL)
 	{
-		printf("%d a un voisin %s : proc %d (%d , %d)\n", num, c, ((int*)temp->data)[0], ((int*)temp->data)[1], ((int*)temp->data)[2]);
+		printf("Processus %d a un voisin %s : proc %d (%d , %d)\n", num, c, ((int*)temp->data)[0], ((int*)temp->data)[1], ((int*)temp->data)[2]);
 		temp = temp->next;
 	}
 }

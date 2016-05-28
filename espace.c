@@ -206,3 +206,37 @@ int estValide(const Espace * const e)
 {
 	return ((e->xdebut<e->xfin)&&(e->ydebut<e->yfin));
 }
+
+void mettreAJourEspace(Espace * const e,const int * const tab)
+{
+	if(e->xdebut==tab[0] && e->xfin==tab[1])
+	{
+		e->ydebut = min(e->ydebut, tab[2]);
+		e->yfin = max(e->yfin, tab[3]);
+	}
+	else if(e->ydebut==tab[2] && e->yfin==tab[3])
+	{
+		e->xdebut = min(e->xdebut, tab[0]);
+		e->xfin = max(e->yfin, tab[1]);
+	}
+}
+
+int max(const int a, const int b)
+{
+	if(a>b)
+	{
+		return a;
+	}
+	return b;
+}
+int min(const int a, const int b)
+{
+	if(a<b)
+	{
+		return a;
+	}
+	return b;
+}
+
+
+

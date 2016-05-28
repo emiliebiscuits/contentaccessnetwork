@@ -26,7 +26,7 @@ void afficherDonnees(Donnees * const d, const int rank)
 	while(temp!=NULL)
 	{
 		ptr = (Donnee*)temp->data;
-		printf("rank %d: ( %d, %d ) val: %d\n", rank, ptr->pos[0], ptr->pos[1], ptr->valeur);
+		printf("Donnee dans processus %d : (( %d, %d ), %d)\n", rank, ptr->pos[0], ptr->pos[1], ptr->valeur);
 		temp = temp->next;
 	}
 }
@@ -89,4 +89,14 @@ int *tabTransferD(Donnees * const d, const int * const esp)
 		temp = temp->next;
 	}
 	return tab;
+}
+
+void ajouterDeupuisTab(Donnees * const d, const int * const tab, const int taille)
+{
+	int count = 0;
+	while(count < taille)
+	{
+		ajouterDonnee(d, tab[count], tab[count+1], tab[count+2]);
+		count+=3;
+	}
 }

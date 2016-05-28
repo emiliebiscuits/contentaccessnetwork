@@ -24,5 +24,6 @@ void logDonnees(Donnees * const, const int);
 void viderDonnees(Donnees *);
 int tailleDonnees(Donnees * const, const int * const);
 int *tabTransferD(Donnees * const, const int * const);
+void ajouterDeupuisTab(Donnees * const, const int * const, const int);
 #endif
 

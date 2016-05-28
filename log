@@ -1,0 +1,508 @@
+mpirun -np 6 out
+*****************************Partie 1*****************************
+Espace de 1 : [xdebut : 501  xfin : 750  ydebut : 501  yfin : 1000]
+Identifiant de 1 : ( 635, 979 )
+Espace de 2 : [xdebut : 0  xfin : 500  ydebut : 501  yfin : 1000]
+Identifiant de 2 : ( 269, 613 )
+Espace de 3 : [xdebut : 501  xfin : 1000  ydebut : 0  yfin : 500]
+Identifiant de 3 : ( 904, 247 )
+Espace de 4 : [xdebut : 751  xfin : 1000  ydebut : 501  yfin : 1000]
+Identifiant de 4 : ( 787, 537 )
+Espace de 5 : [xdebut : 0  xfin : 500  ydebut : 0  yfin : 500]
+Identifiant de 5 : ( 335, 335 )
+Processus 5 a un voisin bas : proc 2 (269 , 613)
+Processus 5 a un voisin droite : proc 3 (904 , 247)
+Processus 1 a un voisin haut : proc 3 (904 , 247)
+Processus 1 a un voisin gauche : proc 2 (269 , 613)
+Processus 1 a un voisin droite : proc 4 (787 , 537)
+Processus 3 a un voisin bas : proc 1 (635 , 979)
+Processus 3 a un voisin bas : proc 4 (787 , 537)
+Processus 3 a un voisin gauche : proc 5 (335 , 335)
+Processus 4 a un voisin haut : proc 3 (904 , 247)
+Processus 4 a un voisin gauche : proc 1 (635 , 979)
+Processus 2 a un voisin haut : proc 5 (335 , 335)
+Processus 2 a un voisin droite : proc 1 (635 , 979)
+*****************************Partie 2*****************************
+Donnee dans processus 4 : (( 904, 807 ), 1711)
+Donnee dans processus 4 : (( 807, 613 ), 1420)
+Donnee dans processus 4 : (( 979, 957 ), 1936)
+Donnee dans processus 4 : (( 882, 763 ), 1645)
+Donnee dans processus 4 : (( 785, 569 ), 1354)
+Donnee dans processus 0 : (( 0, 0 ), 0)
+Donnee dans processus 0 : (( 635, 269 ), 904)
+Donnee dans processus 0 : (( 269, 538 ), 807)
+Donnee dans processus 0 : (( 904, 807 ), 1711)
+Donnee dans processus 0 : (( 538, 75 ), 613)
+Donnee dans processus 0 : (( 172, 344 ), 516)
+Donnee dans processus 0 : (( 807, 613 ), 1420)
+Donnee dans processus 2 : (( 269, 538 ), 807)
+Donnee dans processus 2 : (( 441, 882 ), 1323)
+Donnee dans processus 2 : (( 344, 688 ), 1032)
+Donnee dans processus 2 : (( 419, 838 ), 1257)
+Donnee dans processus 2 : (( 322, 644 ), 966)
+Donnee dans processus 2 : (( 494, 988 ), 1482)
+Donnee dans processus 2 : (( 397, 794 ), 1191)
+Donnee dans processus 2 : (( 300, 600 ), 900)
+Donnee dans processus 2 : (( 472, 944 ), 1416)
+Donnee dans processus 2 : (( 375, 750 ), 1125)
+Donnee dans processus 2 : (( 278, 556 ), 834)
+Donnee dans processus 0 : (( 441, 882 ), 1323)
+Donnee dans processus 0 : (( 75, 150 ), 225)
+Donnee dans processus 0 : (( 710, 419 ), 1129)
+Donnee dans processus 0 : (( 344, 688 ), 1032)
+Donnee dans processus 0 : (( 979, 957 ), 1936)
+Donnee dans processus 0 : (( 613, 225 ), 838)
+Donnee dans processus 0 : (( 247, 494 ), 741)
+Donnee dans processus 0 : (( 882, 763 ), 1645)
+Donnee dans processus 2 : (( 450, 900 ), 1350)
+Donnee dans processus 2 : (( 353, 706 ), 1059)
+Donnee dans processus 2 : (( 256, 512 ), 768)
+Donnee dans processus 2 : (( 428, 856 ), 1284)
+Donnee dans processus 4 : (( 957, 913 ), 1870)
+Donnee dans processus 4 : (( 860, 719 ), 1579)
+Donnee dans processus 4 : (( 763, 525 ), 1288)
+Donnee dans processus 4 : (( 935, 869 ), 1804)
+Donnee dans processus 4 : (( 838, 675 ), 1513)
+Donnee dans processus 4 : (( 913, 825 ), 1738)
+Donnee dans processus 4 : (( 816, 631 ), 1447)
+Donnee dans processus 4 : (( 988, 975 ), 1963)
+Donnee dans processus 4 : (( 891, 781 ), 1672)
+Donnee dans processus 4 : (( 794, 587 ), 1381)
+Donnee dans processus 0 : (( 516, 31 ), 547)
+Donnee dans processus 0 : (( 150, 300 ), 450)
+Donnee dans processus 0 : (( 785, 569 ), 1354)
+Donnee dans processus 0 : (( 419, 838 ), 1257)
+Donnee dans processus 0 : (( 53, 106 ), 159)
+Donnee dans processus 0 : (( 688, 375 ), 1063)
+Donnee dans processus 0 : (( 322, 644 ), 966)
+Donnee dans processus 0 : (( 957, 913 ), 1870)
+Donnee dans processus 0 : (( 591, 181 ), 772)
+Donnee dans processus 0 : (( 225, 450 ), 675)
+Donnee dans processus 0 : (( 860, 719 ), 1579)
+Donnee dans processus 0 : (( 494, 988 ), 1482)
+Donnee dans processus 0 : (( 128, 256 ), 384)
+Donnee dans processus 0 : (( 763, 525 ), 1288)
+Donnee dans processus 0 : (( 397, 794 ), 1191)
+Donnee dans processus 0 : (( 31, 62 ), 93)
+Donnee dans processus 0 : (( 666, 331 ), 997)
+Donnee dans processus 0 : (( 300, 600 ), 900)
+Donnee dans processus 0 : (( 935, 869 ), 1804)
+Donnee dans processus 0 : (( 569, 137 ), 706)
+Donnee dans processus 0 : (( 203, 406 ), 609)
+Donnee dans processus 0 : (( 838, 675 ), 1513)
+Donnee Donnee dans processus 3 : (( 635, 269 ), 904)
+Donnee dans processus 3 : (( 538, 75 ), 613)
+Donnee dans processus 3 : (( 710, 419 ), 1129)
+Donnee dans processus 3 : (( 613, 225 ), 838)
+Donnee dans processus 3 : (( 516, 31 ), 547)
+Donnee dans processus 3 : (( 688, 375 ), 1063)
+Donnee dans processus 3 : (( 591, 181 ), 772)
+Donnee dans processus 3 : (( 666, 331 ), 997)
+Donnee dans processus 3 : (( 569, 137 ), 706)
+Donnee dans processus 3 : (( 741, 481 ), 1222)
+Donnee dans processus 3 : (( 644, 287 ), 931)
+Donnee dans processus 3 : (( 547, 93 ), 640)
+Donnee dans processus 3 : (( 719, 437 ), 1156)
+Donnee dans processus 3 : (( 622, 243 ), 865)
+Donnee dans processus 3 : (( 525, 49 ), 574)
+Donnee dans processus 5 : (( 0, 0 ), 0)
+Donnee dans processus 5 : (( 172, 344 ), 516)
+Donnee dans processus 5 : (( 75, 150 ), 225)
+Donnee dans processus 5 : (( 247, 494 ), 741)
+Donnee dans processus 5 : (( 150, 300 ), 450)
+Donnee dans processus 5 : (( 53, 106 ), 159)
+Donnee dans processus 5 : (( 225, 450 ), 675)
+Donnee dans processus 5 : (( 128, 256 ), 384)
+Donnee dans processus 5 : (( 31, 62 ), 93)
+dans processus 0 : (( 472, 944 ), 1416)
+Donnee dans processus 0 : (( 106, 212 ), 318)
+Donnee dans processus 0 : (( 741, 481 ), 1222)
+Donnee dans processus 0 : (( 375, 750 ), 1125)
+Donnee dans processus 0 : (( 9, 18 ), 27)
+Donnee dans processus 0 : (( 644, 287 ), 931)
+Donnee dans processus 0 : (( 278, 556 ), 834)
+Donnee dans processus 5 : (( 203, 406 ), 609)
+Donnee dans processus 5 : (( 106, 212 ), 318)
+Donnee dans processus 5 : (( 9, 18 ), 27)
+Donnee dans processus 0 : (( 913, 825 ), 1738)
+Donnee dans processus 0 : (( 547, 93 ), 640)
+Donnee dans processus 0 : (( 181, 362 ), 543)
+Donnee dans processus 0 : (( 816, 631 ), 1447)
+Donnee dans processus 0 : (( 450, 900 ), 1350)
+Donnee dans processus 0 : (( 84, 168 ), 252)
+Donnee dans processus 0 : (( 719, 437 ), 1156)
+Donnee dans processus 0 : (( 353, 706 ), 1059)
+Donnee dans processus 0 : (( 988, 975 ), 1963)
+Donnee dans processus 0 : (( 622, 243 ), 865)
+Donnee dans processus 0 : (( 256, 512 ), 768)
+*****************************Partie 3*****************************
+Processus 0 a recu donnée : 0 à partir une recherche de broadcast
+Processus 0 a recu donnée : 904 à partir une recherche de broadcast
+Processus 0 a recu donnée : 807 à partir une recherche de broadcast
+Processus 0 a recu donnée : 1711 à partir une recherche de broadcast
+Processus 0 a recu donnée : 613 à partir une recherche de broadcast
+Processus 0 a recu donnée : 516 à partir une recherche de broadcast
+Processus 0 a recu donnée :Processus 2 a trouvé donnée (269,538) chez lui
+Processus 3 a trouvé donnée (635,269) chez lui
+Processus 3 a trouvé donnée (538,75) chez lui
+Processus 4 a trouvé donnée (904,807) chez lui
+Processus 4 a trouvé donnée (807,613) chez lui
+Donnee dans processus 5 : (( 181, 362 ), 543)
+Donnee dans processus 5 : (( 84, 168 ), 252)
+Donnee dans processus 5 : (( 159, 318 ), 477)
+Processus 5 a trouvé donnée (0,0) chez lui
+Processus 5 a trouvé donnée (172,344) chez lui
+ 1420 à partir une recherche de broadcast
+Processus 0 a recu donnée : 1323 à partir une recherche de broadcast
+Processus 2 a trouvé donnée (441,882) chez lui
+Processus 5 a trouvé donnée (75,150) chez lui
+Processus 3 a trouvé donnée (710,419) chez lui
+Processus 0 a recu donnée : 225 à partir une recherche de broadcast
+Processus 0 a recu donnée : 1129 à partir une recherche de broadcast
+Processus 2 a trouvé donnée (344,688) chez lui
+Processus 0 a recu donnée : 1032 à partir une recherche de broadcast
+Processus 4 a trouvé donnée (979,957) chez lui
+Processus 0 a recu donnée : 1936 à partir une recherche de broadcast
+Processus 3 a trouvé donnée (613,225) chez lui
+Processus 0 a recu donnée : 838 à partir une recherche de broadcast
+Processus 5 a trouvé donnée (247,494) chez lui
+Processus 0 a recu donnée : 741 à partir une recherche de broadcast
+Processus 4 a trouvé donnée (882,763) chez lui
+Processus 3 a trouvé donnée (516,31) chez lui
+Processus 0 a recu donnée : 1645 à partir une recherche de broadcast
+Processus 0 a recu donnée : 547 à partir une recherche de broadcast
+Processus 5 a trouvé donnée (150,300) chez lui
+Processus 0 a recu donnée : 450 à partir une recherche de broadcast
+Processus 4 a trouvé donnée (785,569) chez lui
+Processus 0 a recu donnée : 1354 à partir une recherche de broadcast
+Processus 2 a trouvé donnée (419,838) chez lui
+Processus 0 a recu donnée : 1257 à partir une recherche de broadcast
+Processus 5 a trouvé donnée (53,106) chez lui
+Processus 0 a recu donnée : 159 à partir une recherche de broadcast
+Processus 3 a trouvé donnée (688,375) chez lui
+Processus 0 a recu donnée : 1063 à partir une recherche de broadcast
+Processus 2 a trouvé donnée (322,644) chez lui
+Processus 0 a recu donnée : 966 à partir une recherche de broadcast
+Processus 4 a trouvé donnée (957,913) chez lui
+Processus 0 a recu donnée : 1870 à partir une recherche de broadcast
+Processus 3 a trouvé donnée (591,181) chez lui
+Processus 0 a recu donnée : 772 à partir une recherche de broadcast
+Processus 5 a trouvé donnée (225,450) chez lui
+Processus 0 a recu donnée : 675 à partir une recherche de broadcast
+Processus 4 a trouvé donnée (860,719) chez lui
+Processus 0 a recu donnée : 1579 à partir une recherche de broadcast
+Processus 2 a trouvé donnée (494,988) chez lui
+Processus 0 a recu donnée : 1482 à partir une recherche de broadcast
+Processus 5 a trouvé donnée (128,256) chez lui
+Processus 0 a recu donnée : 384 à partir une recherche de broadcast
+Processus 4 a trouvé donnée (763,525) chez lui
+Processus 0 a recu donnée : 1288 à partir une recherche de broadcast
+Processus 2 a trouvé donnée (397,794) chez lui
+Processus 0 a recu donnée : 1191 à partir une recherche de broadcast
+Processus 5 a trouvé donnée (31,62) chez lui
+Processus 0 a recu donnée : 93 à partir une recherche de broadcast
+Processus 3 a trouvé donnée (666,331) chez lui
+Processus 0 a recu donnée : 997 à partir une recherche de broadcast
+Processus 2 a trouvé donnée (300,600) chez lui
+Processus 0 a recu donnée : 900 à partir une recherche de broadcast
+Processus 4 a trouvé donnée (935,869) chez lui
+Processus 0 a recu donnée : 1804 à partir une recherche de broadcast
+Processus 3 a trouvé donnée (569,137) chez lui
+Processus 0 a recu donnée : 706 à partir une recherche de broadcast
+Processus 5 a trouvé donnée (203,406) chez lui
+Processus 0 a recu donnée : 609 à partir une recherche de broadcast
+Processus 4 a trouvé donnée (838,675) chez lui
+Processus 0 a recu donnée : 1513 à partir une recherche de broadcast
+Processus 2 a trouvé donnée (472,944) chez lui
+Processus 0 a recu donnée : 1416 à partir une recherche de broadcast
+Processus 5 a trouvé donnée (106,212) chez lui
+Processus 0 a recu donnée : 318 à partir une recherche de broadcast
+Processus 3 a trouvé donnée (741,481) chez lui
+Processus 0 a recu donnée : 1222 à partir une recherche de broadcast
+Processus 2 a trouvé donnée (375,750) chez lui
+Processus 0 a recu donnée : 1125 à partir une recherche de broadcast
+Processus 5 a trouvé donnée (9,18) chez lui
+Processus 0 a recu donnée : 27 à partir une recherche de broadcast
+Processus 3 a trouvé donnée (644,287) chez lui
+Processus 0 a recu donnée : 931 à partir une recherche de broadcast
+Processus 2 a trouvé donnée (278,556) chez lui
+Processus 0 a recu donnée : 834 à partir une recherche de broadcast
+Processus 4 a trouvé donnée (913,825) chez lui
+Processus 0 a recu donnée : 1738 à partir une recherche de broadcast
+Processus 3 a trouvé donnée (547,93) chez lui
+Processus 0 a recu donnée : 640 à partir une recherche de broadcast
+Processus 5 a trouvé donnée (181,362) chez lui
+Processus 0 a recu donnée : 543 à partir une recherche de broadcast
+Processus 4 a trouvé donnée (816,631) chez lui
+Processus 0 a recu donnée : 1447 à partir une recherche de broadcast
+Processus 2 a trouvé donnée (450,900) chez lui
+Processus 0 a recu donnée : 1350 à partir une recherche de broadcast
+Processus 5 a trouvé donnée (84,168) chez lui
+Processus 0 a recu donnée : 252 à partir une recherche de broadcast
+Processus 3 a trouvé donnée (719,437) chez lui
+Processus 0 a recu donnée : 1156 à partir une recherche de broadcast
+Processus 2 a trouvé donnée (353,706) chez lui
+Processus 0 a recu donnée : 1059 à partir une recherche de broadcast
+Processus 4 a trouvé donnée (988,975) chez lui
+Processus 0 a recu donnée : 1963 à partir une recherche de broadcast
+Processus 3 a trouvé donnée (622,243) chez lui
+Processus 0 a recu donnée : 865 à partir une recherche de broadcast
+Processus 2 a trouvé donnée (256,512) chez lui
+Processus 0 a recu donnée : 768 à partir une recherche de broadcast
+Processus 1 a recu (0,0), il a envoyé à processus 3
+Processus 3 a recu (0,0), il a envoyé à processus 5
+Processus 5 a trouvé (0,0) chez lui
+Processus a recu la donnee : 0 à partir d'une recherche proche en proche
+Processus 1 a recu (635,269), il a envoyé à processus 3
+Processus 3 a trouvé (635,269) chez lui
+Processus a recu la donnee : 904 à partir d'une recherche proche en proche
+Processus 1 a recu (269,538), il a envoyé à processus 2
+Processus 2 a trouvé (269,538) chez lui
+Processus a recu la donnee : 807 à partir d'une recherche proche en proche
+Processus 1 a recu (904,807), il a envoyé à processus 4
+Processus 4 a trouvé (904,807) chez lui
+Processus a recu la donnee : 1711 à partir d'une recherche proche en proche
+Processus 1 a recu (538,75), il a envoyé à processus 3
+Processus 3 a trouvé (538,75) chez lui
+Processus a recu la donnee : 613 à partir d'une recherche proche en proche
+Processus 1 a recu (172,344), il a envoyé à processus 3
+Processus 3 a recu (172,344), il a envoyé à processus 5
+Processus 5 a trouvé (172,344) chez lui
+Processus a recu la donnee : 516 à partir d'une recherche proche en proche
+Processus 1 a recu (807,613), il a envoyé à processus 4
+Processus 4 a trouvé (807,613) chez lui
+Processus a recu la donnee : 1420 à partir d'une recherche proche en proche
+Processus 1 a recu (441,882), il a envoyé à processus 2
+Processus 2 a trouvé (441,882) chez lui
+Processus a recu la donnee : 1323 à partir d'une recherche proche en proche
+Processus 1 a recu (75,150), il a envoyé à processus 3
+Processus 3 a recu (75,150), il a envoyé à processus 5
+Processus 5 a trouvé (75,150) chez lui
+Processus a recu la donnee : 225 à partir d'une recherche proche en proche
+Processus 1 a recu (710,419), il a envoyé à processus 3
+Processus 3 a trouvé (710,419) chez lui
+Processus a recu la donnee : 1129 à partir d'une recherche proche en proche
+Processus 1 a recu (344,688), il a envoyé à processus 2
+Processus 2 a trouvé (344,688) chez lui
+Processus a recu la donnee : 1032 à partir d'une recherche proche en proche
+Processus 1 a recu (979,957), il a envoyé à processus 4
+Processus 4 a trouvé (979,957) chez lui
+Processus a recu la donnee : 1936 à partir d'une recherche proche en proche
+Processus 1 a recu (613,225), il a envoyé à processus 3
+Processus 3 a trouvé (613,225) chez lui
+Processus a recu la donnee : 838 à partir d'une recherche proche en proche
+Processus 1 a recu (247,494), il a envoyé à processus 3
+Processus 3 a recu (247,494), il a envoyé à processus 5
+Processus 5 a trouvé (247,494) chez lui
+Processus a recu la donnee : 741 à partir d'une recherche proche en proche
+Processus 1 a recu (882,763), il a envoyé à processus 4
+Processus 4 a trouvé (882,763) chez lui
+Processus a recu la donnee : 1645 à partir d'une recherche proche en proche
+Processus 1 a recu (516,31), il a envoyé à processus 3
+Processus 3 a trouvé (516,31) chez lui
+Processus a recu la donnee : 547 à partir d'une recherche proche en proche
+Processus 1 a recu (150,300), il a envoyé à processus 3
+Processus 3 a recu (150,300), il a envoyé à processus 5
+Processus 5 a trouvé (150,300) chez lui
+Processus a recu la donnee : 450 à partir d'une recherche proche en proche
+Processus 1 a recu (785,569), il a envoyé à processus 4
+Processus 4 a trouvé (785,569) chez lui
+Processus a recu la donnee : 1354 à partir d'une recherche proche en proche
+Processus 1 a recu (419,838), il a envoyé à processus 2
+Processus 2 a trouvé (419,838) chez lui
+Processus a recu la donnee : 1257 à partir d'une recherche proche en proche
+Processus 1 a recu (53,106), il a envoyé à processus 3
+Processus 3 a recu (53,106), il a envoyé à processus 5
+Processus 5 a trouvé (53,106) chez lui
+Processus a recu la donnee : 159 à partir d'une recherche proche en proche
+Processus 1 a recu (688,375), il a envoyé à processus 3
+Processus 3 a trouvé (688,375) chez lui
+Processus a recu la donnee : 1063 à partir d'une recherche proche en proche
+Processus 1 a recu (322,644), il a envoyé à processus 2
+Processus 2 a trouvé (322,644) chez lui
+Processus a recu la donnee : 966 à partir d'une recherche proche en proche
+Processus 1 a recu (957,913), il a envoyé à processus 4
+Processus 4 a trouvé (957,913) chez lui
+Processus a recu la donnee : 1870 à partir d'une recherche proche en proche
+Processus 1 a recu (591,181), il a envoyé à processus 3
+Processus 3 a trouvé (591,181) chez lui
+Processus a recu la donnee : 772 à partir d'une recherche proche en proche
+Processus 1 a recu (225,450), il a envoyé à processus 3
+Processus 3 a recu (225,450), il a envoyé à processus 5
+Processus 5 a trouvé (225,450) chez lui
+Processus a recu la donnee : 675 à partir d'une recherche proche en proche
+Processus 1 a recu (860,719), il a envoyé à processus 4
+Processus a recu la donnee : 1579 à partir d'une recherche proche en proche
+Processus 4 a trouvé (860,719) chez lui
+Processus 1 a recu (494,988), il a envoyé à processus 2
+Processus a recu la donnee : 1482 à partir d'une recherche proche en proche
+Processus 2 a trouvé (494,988) chez lui
+Processus 1 a recu (128,256), il a envoyé à processus 3
+Processus 3 a recu (128,256), il a envoyé à processus 5
+Processus 5 a trouvé (128,256) chez lui
+Processus a recu la donnee : 384 à partir d'une recherche proche en proche
+Processus 1 a recu (763,525), il a envoyé à processus 4
+Processus a recu la donnee : 1288 à partir d'une recherche proche en proche
+Processus 4 a trouvé (763,525) chez lui
+Processus 1 a recu (397,794), il a envoyé à processus 2
+Processus 2 a trouvé (397,794) chez lui
+Processus a recu la donnee : 1191 à partir d'une recherche proche en proche
+Processus 1 a recu (31,62), il a envoyé à processus 3
+Processus 3 a recu (31,62), il a envoyé à processus 5
+Processus 5 a trouvé (31,62) chez lui
+Processus a recu la donnee : 93 à partir d'une recherche proche en proche
+Processus 1 a recu (666,331), il a envoyé à processus 3
+Processus 3 a trouvé (666,331) chez lui
+Processus a recu la donnee : 997 à partir d'une recherche proche en proche
+Processus 1 a recu (300,600), il a envoyé à processus 2
+Processus 2 a trouvé (300,600) chez lui
+Processus a recu la donnee : 900 à partir d'une recherche proche en proche
+Processus 1 a recu (935,869), il a envoyé à processus 4
+Processus 4 a trouvé (935,869) chez lui
+Processus a recu la donnee : 1804 à partir d'une recherche proche en proche
+Processus 1 a recu (569,137), il a envoyé à processus 3
+Processus 3 a trouvé (569,137) chez lui
+Processus a recu la donnee : 706 à partir d'une recherche proche en proche
+Processus 1 a recu (203,406), il a envoyé à processus 3
+Processus 3 a recu (203,406), il a envoyé à processus 5
+Processus 5 a trouvé (203,406) chez lui
+Processus a recu la donnee : 609 à partir d'une recherche proche en proche
+Processus 1 a recu (838,675), il a envoyé à processus 4
+Processus 4 a trouvé (838,675) chez lui
+Processus a recu la donnee : 1513 à partir d'une recherche proche en proche
+Processus 1 a recu (472,944), il a envoyé à processus 2
+Processus 2 a trouvé (472,944) chez lui
+Processus a recu la donnee : 1416 à partir d'une recherche proche en proche
+Processus 1 a recu (106,212), il a envoyé à processus 3
+Processus 3 a recu (106,212), il a envoyé à processus 5
+Processus 5 a trouvé (106,212) chez lui
+Processus a recu la donnee : 318 à partir d'une recherche proche en proche
+Processus 1 a recu (741,481), il a envoyé à processus 3
+Processus 1 a recu (375,750), il a envoyé à processus 2
+Processus 3 a trouvé (741,481) chez lui
+Processus a recu la donnee : 1222 à partir d'une recherche proche en proche
+Processus 2 a trouvé (375,750) chez lui
+Processus a recu la donnee : 1125 à partir d'une recherche proche en proche
+Processus 1 a recu (9,18), il a envoyé à processus 3
+Processus 3 a recu (9,18), il a envoyé à processus 5
+Processus 5 a trouvé (9,18) chez lui
+Processus a recu la donnee : 27 à partir d'une recherche proche en proche
+Processus 1 a recu (644,287), il a envoyé à processus 3
+Processus 3 a trouvé (644,287) chez lui
+Processus a recu la donnee : 931 à partir d'une recherche proche en proche
+Processus 1 a recu (278,556), il a envoyé à processus 2
+Processus 2 a trouvé (278,556) chez lui
+Processus a recu la donnee : 834 à partir d'une recherche proche en proche
+Processus 1 a recu (913,825), il a envoyé à processus 4
+Processus 4 a trouvé (913,825) chez lui
+Processus a recu la donnee : 1738 à partir d'une recherche proche en proche
+Processus 1 a recu (547,93), il a envoyé à processus 3
+Processus 3 a trouvé (547,93) chez lui
+Processus a recu la donnee : 640 à partir d'une recherche proche en proche
+Processus 1 a recu (181,362), il a envoyé à processus 3
+Processus 3 a recu (181,362), il a envoyé à processus 5
+Processus 5 a trouvé (181,362) chez lui
+Processus a recu la donnee : 543 à partir d'une recherche proche en proche
+Processus 1 a recu (816,631), il a envoyé à processus 4
+Processus 4 a trouvé (816,631) chez lui
+Processus a recu la donnee : 1447 à partir d'une recherche proche en proche
+Processus 1 a recu (450,900), il a envoyé à processus 2
+Processus 2 a trouvé (450,900) chez lui
+Processus a recu la donnee : 1350 à partir d'une recherche proche en proche
+Processus 1 a recu (84,168), il a envoyé à processus 3
+Processus 3 a recu (84,168), il a envoyé à processus 5
+Processus 5 a trouvé (84,168) chez lui
+Processus a recu la donnee : 252 à partir d'une recherche proche en proche
+Processus 1 a recu (719,437), il a envoyé à processus 3
+Processus 3 a trouvé (719,437) chez lui
+Processus a recu la donnee : 1156 à partir d'une recherche proche en proche
+Processus 1 a recu (353,706), il a envoyé à processus 2
+Processus 2 a trouvé (353,706) chez lui
+Processus a recu la donnee : 1059 à partir d'une recherche proche en proche
+Processus 1 a recu (988,975), il a envoyé à processus 4
+Processus 4 a trouvé (988,975) chez lui
+Processus a recu la donnee : 1963 à partir d'une recherche proche en proche
+Processus 1 a recu (622,243), il a envoyé à processus 3
+Processus 3 a trouvé (622,243) chez lui
+Processus a recu la donnee : 865 à partir d'une recherche proche en proche
+Processus 1 a recu (256,512), il a envoyé à processus 2
+Processus 2 a trouvé (256,512) chez lui
+Processus a recu la donnee : 768 à partir d'une recherche proche en proche
+*****************************Partie 4*****************************
+Noeud à supprimer : 5
+Suppression terminée !!!!!!!!!!!!!!!
+Espace de processus 2: [xdebut : 0  xfin : 500  ydebut : 0  yfin : 1000]
+Espace de processus 3: [xdebut : 501  xfin : 1000  ydebut : 0  yfin : 500]
+Espace de processus 4: [xdebut : 751  xfin : 1000  ydebut : 501  yfin : 1000]
+Espace de processus 1: [xdebut : 501  xfin : 750  ydebut : 501  yfin : 1000]
+Espace de processus 5: [xdebut : -1  xfin : -1  ydebut : -1  yfin : -1]
+Donnee dans processus 3 : (( 635, 269 ), 904)
+Donnee dans processus 3 : (( 538, 75 ), 613)
+Donnee dans processus 3 : (( 710, 419 ), 1129)
+Donnee dans processus 3 : (( 613, 225 ), 838)
+Donnee dans processus 3 : (( 516, 31 ), 547)
+Donnee dans processus 3 : (( 688, 375 ), 1063)
+Donnee dans processus 3 : (( 591, 181 ), 772)
+Donnee dans processus 3 : (( 666, 331 ), 997)
+Donnee dans processus 3 : (( 569, 137 ), 706)
+Donnee dans processus 3 : (( 741, 481 ), 1222)
+Donnee dans processus 3 : (( 644, 287 ), 931)
+Donnee dans processus 3 : (( 547, 93 ), 640)
+Donnee dans processus 3 : (( 719, 437 ), 1156)
+Donnee dans processus 3 : (( 622, 243 ), 865)
+Donnee dans processus 3 : (( 525, 49 ), 574)
+Donnee dans processus 4 : (( 904, 807 ), 1711)
+Donnee dans processus 4 : (( 807, 613 ), 1420)
+Donnee dans processus 4 : (( 979, 957 ), 1936)
+Donnee dans processus 4 : (( 882, 763 ), 1645)
+Donnee dans processus 4 : (( 785, 569 ), 1354)
+Donnee dans processus 4 : (( 957, 913 ), 1870)
+Donnee dans processus 4 : (( 860, 719 ), 1579)
+Donnee dans processus 4 : (( 763, 525 ), 1288)
+Donnee dans processus 4 : (( 935, 869 ), 1804)
+Donnee dans processus 4 : (( 838, 675 ), 1513)
+Donnee dans processus 4 : (( 913, 825 ), 1738)
+Donnee dans processus 4 : (( 816, 631 ), 1447)
+Donnee dans processus 4 : (( 988, 975 ), 1963)
+Donnee dans processus 4 : (( 891, 781 ), 1672)
+Donnee dans processus 2 : (( 269, 538 ), 807)
+Donnee dans processus 2 : (( 441, 882 ), 1323)
+Donnee dans processus 2 : (( 344, 688 ), 1032)
+Donnee dans processus 2 : (( 419, 838 ), 1257)
+Donnee dans processus 4 : (( 794, 587 ), 1381)
+Donnee dans processus 2 : (( 322, 644 ), 966)
+Donnee dans processus 2 : (( 494, 988 ), 1482)
+Donnee dans processus 2 : (( 397, 794 ), 1191)
+Donnee dans processus 2 : (( 300, 600 ), 900)
+Donnee dans processus 2 : (( 472, 944 ), 1416)
+Donnee dans processus 2 : (( 375, 750 ), 1125)
+Donnee dans processus 2 : (( 278, 556 ), 834)
+Donnee dans processus 2 : (( 450, 900 ), 1350)
+Donnee dans processus 2 : (( 353, 706 ), 1059)
+Donnee dans processus 2 : (( 256, 512 ), 768)
+Donnee dans processus 2 : (( 428, 856 ), 1284)
+Donnee dans processus 2 : (( 0, 0 ), 0)
+Donnee dans processus 2 : (( 172, 344 ), 516)
+Donnee dans processus 2 : (( 75, 150 ), 225)
+Donnee dans processus 2 : (( 247, 494 ), 741)
+Donnee dans processus 2 : (( 150, 300 ), 450)
+Donnee dans processus 2 : (( 53, 106 ), 159)
+Donnee dans processus 2 : (( 225, 450 ), 675)
+Donnee dans processus 2 : (( 128, 256 ), 384)
+Donnee dans processus 2 : (( 31, 62 ), 93)
+Donnee dans processus 2 : (( 203, 406 ), 609)
+Donnee dans processus 2 : (( 106, 212 ), 318)
+Donnee dans processus 2 : (( 9, 18 ), 27)
+Donnee dans processus 2 : (( 181, 362 ), 543)
+Donnee dans processus 2 : (( 84, 168 ), 252)
+Donnee dans processus 2 : (( 159, 318 ), 477)
+Processus 1 a un voisin haut : proc 3 (904 , 247)
+Processus 1 a un voisin gauche : proc 2 (269 , 613)
+Processus 1 a un voisin droite : proc 4 (787 , 537)
+Processus 3 a un voisin bas : proc 1 (635 , 979)
+Processus 3 a un voisin bas : proc 4 (787 , 537)
+Processus 3 a un voisin gauche : proc 2 (269 , 613)
+Processus 4 a un voisin haut : proc 3 (904 , 247)
+Processus 4 a un voisin gauche : proc 1 (635 , 979)
+Processus 2 a un voisin droite : proc 3 (904 , 247)
+Processus 2 a un voisin droite : proc 1 (635 , 979)

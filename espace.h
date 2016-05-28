@@ -35,4 +35,8 @@ int estVoisinDroite(const Espace * const, const int, const int, const int, const
 void remplirTabParEspace(const Espace * const, int * const);
 
 int estValide(const Espace * const);
+
+void mettreAJourEspace(Espace * const,const int * const);
+int max(const int, const int);
+int min(const int, const int);
 #endif
