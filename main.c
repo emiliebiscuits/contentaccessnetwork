@@ -51,26 +51,31 @@ void suppression(Voisins *v, GSList *l, Espace *e, Donnees *d, int rank)
 			MPI_Recv(NULL, 0, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 			//Lui distribuer l'espace pour agrandir
 			MPI_Send(espaceDistribue, 4, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD);
+			//Attendre l'aquittement
 			MPI_Recv(NULL, 0, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 			//Lui dire la taille des données associées à l'espace distribué
 			taille = tailleDonnees(d,espaceDistribue);
 			MPI_Send(&taille, 1, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD);
+			//Attendre l'aquittement
 			MPI_Recv(NULL, 0, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 			//Lui envoyer des donnees associées à l'espace distribué
 			donneesTransfer = tabTransferD(d,espaceDistribue);
 			free(espaceDistribue);
-			//MPI_Send(donneesTransfer, taille, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD);
+			MPI_Send(donneesTransfer, taille, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD);
+			//Attendre l'aquittement
+			MPI_Recv(NULL, 0, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 			free(donneesTransfer);
 			//Lui dire la taille des voisins stockés
 			taille = tailleVoisins(v);
 			MPI_Send(&taille, 1, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD);
+			//Attendre l'aquittement
 			MPI_Recv(NULL, 0, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 			//Lui envoyer tous les voisins
 			voisinsTransfer = tabTransferV(v);
-			//MPI_Send(voisinsTransfer, taille, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD);
-			
+			MPI_Send(voisinsTransfer, taille, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD);
+			//Attendre l'aquittement
+			MPI_Recv(NULL, 0, MPI_INT, ptr_i[0], 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 			free(voisinsTransfer);
-			printf("1....\n");
 		}
 		temp = temp->next;
 	}
@@ -488,24 +493,32 @@ int main(int argc,char **argv)
 					MPI_Recv(&reponse, 1, MPI_INT, num, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 					if(reponse != 0)
 					{
+						//Demander de recevoir un espace
 						MPI_Send(NULL, 0, MPI_INT, num, 0, MPI_COMM_WORLD);
 						//Recevoir l'espace
 						MPI_Recv(&espaceRecu, 4, MPI_INT, num, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+						//Aquittement de l'espace
 						MPI_Send(NULL, 0, MPI_INT, num, 0, MPI_COMM_WORLD);
 						//Recevoir la taille des donnees
 						MPI_Recv(&taille, 1, MPI_INT, num, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 						printf("rank %d taille d %d \n",rank, taille);
-						//Recevoir les donnees
-						//donneesTransfer = (int*)malloc(taille * sizeof(int));
-						//MPI_Recv(donneesTransfer, taille, MPI_INT, num, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-						//Recevoir la taille des voisins
+						//Aquittement de la taille de donnees
 						MPI_Send(NULL, 0, MPI_INT, num, 0, MPI_COMM_WORLD);
+						//Recevoir les donnees
+						donneesTransfer = (int*)malloc(taille * sizeof(int));
+						MPI_Recv(donneesTransfer, taille, MPI_INT, num, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+						//Aquittement des donnees
+						MPI_Send(NULL, 0, MPI_INT, num, 0, MPI_COMM_WORLD);
+						//Recevoir la taille des voisins
 						MPI_Recv(&taille, 1, MPI_INT, num, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 						printf("taille v %d \n",taille);
+						//Aquittement de la taille des voisins
 						MPI_Send(NULL, 0, MPI_INT, num, 0, MPI_COMM_WORLD);
 						//Recevoir les voisins
 						voisinsTransfer = (int*)malloc(taille * sizeof(int));
-						//MPI_Recv(voisinsTransfer, taille, MPI_INT, num, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+						MPI_Recv(voisinsTransfer, taille, MPI_INT, num, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+						//Aquittement des voisins
+						MPI_Send(NULL, 0, MPI_INT, num, 0, MPI_COMM_WORLD);
 						free(donneesTransfer);
 						free(voisinsTransfer);
 					}
